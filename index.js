@@ -17,6 +17,9 @@ client.on('ready', async () => {
         guildId: guildID, 
         adapterCreator: client.guilds.cache.get(guildID).voiceAdapterCreator
     })
+    const voiceName = client.channels.cache.get(channelID).name
+    const guildName = client.guilds.cache.get(guildID).name
+    console.log(`Joined voice `+ voiceName + " in " + guildName)
 })
 
 
