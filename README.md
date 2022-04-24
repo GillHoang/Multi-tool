@@ -12,6 +12,9 @@
 - More soon, if you have idea, please open issue to suggest it :>
 ## Installation
 **Node.js 16.6.0 or newer is required**
+
+## Use in Replit
+Fork this repo : [Click Here](https://replit.com/github/hocsinhgioitoan/Mutil-tool)
 ## Credits
 - Onwer of [discord.js-selfbot-v13](https://github.com/aiko-chan-ai/discord.js-selfbot-v13): [aiko-chan-ai](https://github.com/aiko-chan-ai/)
 
