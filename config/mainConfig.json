@@ -1,7 +1,7 @@
 {
   "checkUpdatePackage": true,
   "mobileStatus": true,
-  "autoVoice": false,
+  "autoVoice": true,
   "channelID": "id",
   "guildID": "id"
 }

@@ -106,12 +106,12 @@ Made by hocsinhgioitoan Verion 1.3.0
         console.log("Invalid Settings (CS / RP)".red)
     }
     if (autoVoice === true) {
-        joinVoice(guildID, channelID)
+        joinVoice(client, guildID, channelID)
         const voiceName = client.channels.cache.get(channelID).name
         const guildName = client.guilds.cache.get(guildID).name
         console.log(`Joined voice ` + voiceName + " in " + guildName)
         setInterval(function () {
-          joinVoice(guildID, channelID)
+          joinVoice(client, guildID, channelID)
           console.log("Join again".red)
         }, 1000 * 60 * 5 );
     } else {
@@ -122,7 +122,7 @@ Made by hocsinhgioitoan Verion 1.3.0
 
 
 client.login(process.env["token"] || process.env["TOKEN"]); // Don't paste your token here 
-function joinVoice(guildID, channelID) {
+function joinVoice(client, guildID, channelID) {
           joinVoiceChannel({
             channelId: channelID,
             guildId: guildID,
