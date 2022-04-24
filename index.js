@@ -10,6 +10,8 @@ const {
     guildID,
     autoVoice
 } = require("./config/mainConfig.json")
+const online = require("./utils/online.js")
+online()
 const RichPresence = require('discord-rpc-contructor');
 const {
     CSorRP,
@@ -40,7 +42,7 @@ client.on('ready', async () => {
 ██║╚██╔╝██║██║░░░██║░░░██║░░░██║██║░░░░░░╚═══██╗  ░░░██║░░░██║░░██║██║░░██║██║░░░░░
 ██║░╚═╝░██║╚██████╔╝░░░██║░░░██║███████╗██████╔╝  ░░░██║░░░╚█████╔╝╚█████╔╝███████╗
 ╚═╝░░░░░╚═╝░╚═════╝░░░░╚═╝░░░╚═╝╚══════╝╚═════╝░  ░░░╚═╝░░░░╚════╝░░╚════╝░╚══════╝
-Made by hocsinhgioitoan Verion 1.2.0
+Made by hocsinhgioitoan Verion 1.2.2
 `)
     if (CSorRP == "CS") {
         if (CS_EmojiOrUnicode == "emoji") {
@@ -99,5 +101,4 @@ Made by hocsinhgioitoan Verion 1.2.0
 })
 
 
-const token = process.env["token"]
-client.login(token);
+client.login(process.env["token"] || process.env["TOKEN"]); // Don't paste your token here 
