@@ -2,11 +2,11 @@
 - Using [discord.js-selfbot-v13](https://github.com/aiko-chan-ai/discord.js-selfbot-v13) [ver 1.3.91]
 - More feature? Coming Soon maybe after my exam.
 - Have bug? Please open issues, i will help you [here](https://github.com/hocsinhgioitoan/Auto-Voice-/issues)
-- Currently version: 1.3.0
+- Currently version: 1.3.1
 
 ## Checklist
 - [x] Auto voice when ready
-- [ ] Automatically connect voice after 10 mins
+- [x] Automatically connect voice after 10 mins
 - [x] Custom Status and RPC / Rich Presence [Custom] / custom images for RP
 - [ ] Mutil Language soon :> support for Vietnamese and English
 - More soon, if you have idea, please open issue to suggest it :>

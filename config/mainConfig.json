@@ -1,7 +1,9 @@
 {
-  "checkUpdatePackage": true,
-  "mobileStatus": true,
-  "autoVoice": true,
+  "checkUpdatePackage": false,
+  "mobileStatus": false,
+  "autoVoice": false,
   "channelID": "id",
-  "guildID": "id"
+  "guildID": "id",
+  "notice": false,
+  "syncStatus": false
 }
