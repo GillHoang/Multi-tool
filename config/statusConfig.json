@@ -1,11 +1,11 @@
 {
-  "CSorRP": "CS",
+  "CSorRP": "CS/RP",
 
   
-  "CS_NameState": "Hi",
-  "CS_EmojiOrUnicode": "emoji",
-  "CS_NameCustomEmoji": "vvv",
-  "CS_IdCustomEmoji": "875301243235467284",
+  "CS_NameState": "",
+  "CS_EmojiOrUnicode": "",
+  "CS_NameCustomEmoji": "",
+  "CS_IdCustomEmoji": "",
   "animated": false,
   "CS_UnicodeIcon": "",
 

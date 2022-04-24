@@ -2,7 +2,7 @@
 - Using [discord.js-selfbot-v13](https://github.com/aiko-chan-ai/discord.js-selfbot-v13) [ver 1.3.91]
 - More feature? Coming Soon maybe after my exam.
 - Have bug? Please open issues, i will help you [here](https://github.com/hocsinhgioitoan/Auto-Voice-/issues)
-- Currently version: 1.2.2
+- Currently version: 1.3.0
 
 ## Checklist
 - [x] Auto voice when ready
@@ -16,7 +16,9 @@
 ## Use in Replit
 Fork this repo : [Click Here](https://replit.com/github/hocsinhgioitoan/Mutil-tool)
 - How to host 24/7 by uptimerobot.com for mobile and PC [here](https://youtu.be/LAuaVP0e6Qg?t=258)
-
+## Env required
+- `token`/ `TOKEN`: [here](https://github.com/hocsinhgioitoan/Mutil-tool/blob/main/docs/Token.md)
+- `WH_URL`: [PC](https://www.youtube.com/watch?v=K8vgRWZnSZw) / [Mobile](https://www.youtube.com/watch?v=9oClR9rlkIc)
 ## Run
 1. Type `npm i` in shell ternimal
 2. Then run normally

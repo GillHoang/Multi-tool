@@ -4,14 +4,24 @@ const {
 const {
     Client
 } = require('discord.js-selfbot-v13');
-const client = new Client();
+const Discord = require('discord.js-selfbot-v13');
 const {
     channelID,
     guildID,
-    autoVoice
+    autoVoice,
+    checkUpdatePackage,
+    mobileStatus
 } = require("./config/mainConfig.json")
 const online = require("./utils/online.js")
 online()
+var colors = require('colors');
+
+const client = new Client({
+    checkUpdate: checkUpdatePackage,
+    readyStatus: true,
+    ws: { properties: { $browser:  mobileStatus ? "Discord iOS" : "Discord Client"} },
+})
+
 const RichPresence = require('discord-rpc-contructor');
 const {
     CSorRP,
@@ -34,7 +44,7 @@ const {
 } = require("./config/statusConfig.json")
 
 client.on('ready', async () => {
-  console.log(`
+    console.log(`
 
 ███╗░░░███╗██╗░░░██╗████████╗██╗██╗░░░░░░██████╗  ████████╗░█████╗░░█████╗░██╗░░░░░
 ████╗░████║██║░░░██║╚══██╔══╝██║██║░░░░░██╔════╝  ╚══██╔══╝██╔══██╗██╔══██╗██║░░░░░
@@ -42,8 +52,17 @@ client.on('ready', async () => {
 ██║╚██╔╝██║██║░░░██║░░░██║░░░██║██║░░░░░░╚═══██╗  ░░░██║░░░██║░░██║██║░░██║██║░░░░░
 ██║░╚═╝░██║╚██████╔╝░░░██║░░░██║███████╗██████╔╝  ░░░██║░░░╚█████╔╝╚█████╔╝███████╗
 ╚═╝░░░░░╚═╝░╚═════╝░░░░╚═╝░░░╚═╝╚══════╝╚═════╝░  ░░░╚═╝░░░░╚════╝░░╚════╝░╚══════╝
-Made by hocsinhgioitoan Verion 1.2.2
+Made by hocsinhgioitoan Verion 1.3.0
 `)
+    console.log('[LOGIN]'.green + ' Logged in as ' + client.user.tag.red);
+
+    const WebHookClient = new Discord.WebhookClient({
+        url: process.env.WH_URL
+    });
+    if (mobileStatus === true) console.log(` If you don't see your account showing mobile status because it's visible to others but not to you.\n It will take a while for it to show the mobile status so please be patient`.green)
+    WebHookClient.send({
+        content: 'Hello! :wave:\n' + client.ws.ping + 'ms - <t:' + Math.floor(Date.now() / 1000) + ':R>'
+    });
     if (CSorRP == "CS") {
         if (CS_EmojiOrUnicode == "emoji") {
             const custom = new RichPresence.CustomStatus()
@@ -62,7 +81,7 @@ Made by hocsinhgioitoan Verion 1.2.2
                 .toDiscord();
             client.user.setActivity(custom);
         } else {
-           console.log("Invalid Settings (emoji / unicode)")
+            console.log("Invalid Settings (emoji / unicode)".red)
         }
     } else if (CSorRP == "RP") {
         const RPC = require('discord-rpc-contructor');
@@ -84,21 +103,29 @@ Made by hocsinhgioitoan Verion 1.2.2
         client.user.setActivity(r.toDiscord().game);
         // Button not working
     } else {
-       console.log("Invalid Settings (CS / RP)")
+        console.log("Invalid Settings (CS / RP)".red)
     }
-    if (autoVoice === true){
-      joinVoiceChannel({
-        channelId: channelID,
-        guildId: guildID,
-        adapterCreator: client.guilds.cache.get(guildID).voiceAdapterCreator
-    })
-    const voiceName = client.channels.cache.get(channelID).name
-    const guildName = client.guilds.cache.get(guildID).name
-    console.log(`Joined voice ` + voiceName + " in " + guildName)
+    if (autoVoice === true) {
+        joinVoice(guildID, channelID)
+        const voiceName = client.channels.cache.get(channelID).name
+        const guildName = client.guilds.cache.get(guildID).name
+        console.log(`Joined voice ` + voiceName + " in " + guildName)
+        setInterval(function () {
+          joinVoice(guildID, channelID)
+          console.log("Join again".red)
+        }, 1000 * 60 * 5 );
     } else {
-      console.log("Turned off mode auto voice")
+        console.log("Turned off mode auto voice".blue)
     }
 })
 
 
+
 client.login(process.env["token"] || process.env["TOKEN"]); // Don't paste your token here 
+function joinVoice(guildID, channelID) {
+          joinVoiceChannel({
+            channelId: channelID,
+            guildId: guildID,
+            adapterCreator: client.guilds.cache.get(guildID).voiceAdapterCreator
+        })
+}
