@@ -1,30 +1,24 @@
-const {
-    joinVoiceChannel
-} = require("@discordjs/voice");
+const Discord = require('discord.js-selfbot-v13');
 const {
     Client
 } = require('discord.js-selfbot-v13');
-const Discord = require('discord.js-selfbot-v13');
 const {
-    channelID,
-    notice,
-    guildID,
-    autoVoice,
     checkUpdatePackage,
     mobileStatus,
     syncStatus,
-    selfDeaf,
-    selfMute
+    notice
 } = require("./config/mainConfig.json")
-const online = require("./utils/online.js")
-online()
 const {
-    messageOnline
-} = require("./config/other.json")
+    version,
+    description,
+    name, 
+    author
+} = require("./package.json")
 var colors = require('colors');
 const {
     logger
 } = require("./utils/logger");
+const fs = require('fs');
 const client = new Client({
     checkUpdate: checkUpdatePackage,
     readyStatus: syncStatus,
@@ -34,119 +28,55 @@ const client = new Client({
         }
     },
 })
-
-const RichPresence = require('discord-rpc-contructor');
-const {
-    CSorRP,
-    CS_EmojiOrUnicode,
-    CS_NameCustomEmoji,
-    CS_IdCustomEmoji,
-    animated,
-    CS_NameState,
-    CS_UnicodeIcon,
-    RP_ApplicationId,
-    RP_State,
-    RP_Name,
-    RP_Details,
-    RP_size1,
-    RP_size2,
-    RP_AssetsLargeImage,
-    RP_AssetsSmallImage,
-    RP_AssetsLargeText,
-    RP_AssetsSmallText
-} = require("./config/statusConfig.json")
+const axios = require('axios');
+const SourceBin = require('sourcebin-wrapper');
 
 
-client.on('ready', async () => {
-    logger.info(`
+axios.get('https://api.github.com/repos/hocsinhgioitoan/Mutil-tool/releases/latest').then(resp => {
+    if (resp.data.tag_name !== "v" + version) {
+        logger.warn("There is a new update, please update to the new version: ".red + resp.data.tag_name.green)
+        logger.update(`Info update: ${resp.data.tag_name.green}
+Description:
+${resp.data.body}
+Download here: https://github.com/hocsinhgioitoan/Mutil-tool/releases/
+Clone replit: https://replit.com/github/hocsinhgioitoan/Mutil-tool
+`)
+    } else {
+        logger.info(`No new updates at the moment, feel free`.green)
+    }
+});
+logger.info(`
 ███╗░░░███╗██╗░░░██╗████████╗██╗██╗░░░░░░██████╗  ████████╗░█████╗░░█████╗░██╗░░░░░
 ████╗░████║██║░░░██║╚══██╔══╝██║██║░░░░░██╔════╝  ╚══██╔══╝██╔══██╗██╔══██╗██║░░░░░
 ██╔████╔██║██║░░░██║░░░██║░░░██║██║░░░░░╚█████╗░  ░░░██║░░░██║░░██║██║░░██║██║░░░░░
 ██║╚██╔╝██║██║░░░██║░░░██║░░░██║██║░░░░░░╚═══██╗  ░░░██║░░░██║░░██║██║░░██║██║░░░░░
 ██║░╚═╝░██║╚██████╔╝░░░██║░░░██║███████╗██████╔╝  ░░░██║░░░╚█████╔╝╚█████╔╝███████╗
 ╚═╝░░░░░╚═╝░╚═════╝░░░░╚═╝░░░╚═╝╚══════╝╚═════╝░  ░░░╚═╝░░░░╚════╝░░╚════╝░╚══════╝
-Made by hocsinhgioitoan Verion 1.4.0 - Version log remake
+Made by ${author} Verion v${version} - ${description}
 `.blue)
-    logger.info("[LOGIN] ".green + "logged in as " + client.user.tag.red)
+
+fs.readdirSync('./src/events').forEach((category) => {
+    const eventsFiles = fs.readdirSync('./src/events/' + category + '/').filter((file) => file.endsWith('js'));
+    for (const file of eventsFiles) {
+        let event = require('./src/events/' + category + '/' + file);
+        logger.info('[EVENTS]'.cyan + ' Event ' + file.blue + ' of the category ' + category.magenta + ' loaded')
+        client.on(file.split(".")[0], (...args) => event(client, ...args));
+    };
+});
+
+process.on('unhandledRejection', error => {
     if (notice === true) {
         if (!process.env.WH_URL) {
             return logger.error("Invalid Webhook Link. Please check here https://github.com/hocsinhgioitoan/Mutil-tool#env-required")
         } else {
+            console.error(error)
             const WebHookClient = new Discord.WebhookClient({
                 url: process.env.WH_URL
             });
-
             WebHookClient.send({
-                content: messageOnline.replace(/<ping>/g, client.ws.ping).replace(/<ms>/g, Math.floor(Date.now() / 1000))
+                content: '🚨 **ERROR**\n\n```' + error + '```'
             });
         }
     }
-    if (mobileStatus === true) logger.warn(` If you don't see your account showing mobile status because it's visible to others but not to you.\n It will take a while for it to show the mobile status so please be patient`.green)
-    if (CSorRP == "CS") {
-        if (CS_EmojiOrUnicode == "emoji") {
-            const custom = new RichPresence.CustomStatus()
-                .setDiscordEmoji({
-                    name: CS_NameCustomEmoji,
-                    id: CS_IdCustomEmoji,
-                    animated: animated,
-                })
-                .setState(CS_NameState)
-                .toDiscord();
-            client.user.setActivity(custom);
-        } else if (CS_EmojiOrUnicode == "unicode") {
-            const custom = new RichPresence.CustomStatus()
-                .setUnicodeEmoji(CS_UnicodeIcon)
-                .setState(CS_NameState)
-                .toDiscord();
-            client.user.setActivity(custom);
-        } else {
-            logger.error("Invalid Settings (emoji / unicode)".red)
-        }
-    } else if (CSorRP == "RP") {
-        const RPC = require('discord-rpc-contructor');
-        const r = new RPC.Rpc()
-            .setApplicationId(RP_ApplicationId)
-            .setType(0)
-            .setState(RP_State)
-            .setName(RP_Name)
-            .setDetails(RP_Details)
-            .setParty({
-                size: [RP_size1, RP_size2],
-                id: RPC.uuid(),
-            })
-            .setStartTimestamp(Date.now())
-            .setAssetsLargeImage(RP_AssetsLargeImage)
-            .setAssetsLargeText(RP_AssetsLargeText)
-            .setAssetsSmallImage(RP_AssetsSmallImage)
-            .setAssetsSmallText(RP_AssetsSmallText)
-        client.user.setActivity(r.toDiscord().game);
-        // Button not working
-    } else {
-        logger.error("Invalid Settings (CS / RP)".red)
-    }
-    if (autoVoice === true) {
-        joinVoice(client, guildID, channelID)
-        const voiceName = client.channels.cache.get(channelID).name
-        const guildName = client.guilds.cache.get(guildID).name
-        logger.new(`Joined voice ` + voiceName + " in " + guildName)
-        setInterval(function() {
-            joinVoice(client, guildID, channelID)
-            logger.update("Join again".blue)
-        }, 1000 * 60 * 5);
-    } else {
-        logger.warn("Turned off mode auto voice".blue)
-    }
-})
-
-
-
+});
 client.login(process.env["token"] || process.env["TOKEN"]); // Don't paste your token here 
-function joinVoice(client, guildID, channelID) {
-    joinVoiceChannel({
-        channelId: channelID,
-        guildId: guildID,
-        selfDeaf: selfDeaf,
-        selfMute: selfMute,
-        adapterCreator: client.guilds.cache.get(guildID).voiceAdapterCreator
-    })
-}

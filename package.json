@@ -1,14 +1,14 @@
 {
   "name": "Mutil tool",
-  "version": "1.4.0",
-  "description": "",
+  "version": "2.0.0",
+  "description": "Version change the structure of the code",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "hocsinhgioitoan",
   "license": "ISC",
   "dependencies": {
     "@discordjs/voice": "^0.8.0",
