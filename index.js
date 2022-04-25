@@ -12,7 +12,9 @@ const {
     autoVoice,
     checkUpdatePackage,
     mobileStatus,
-    syncStatus
+    syncStatus,
+    selfDeaf,
+    selfMure
 } = require("./config/mainConfig.json")
 const online = require("./utils/online.js")
 online()
@@ -49,16 +51,18 @@ const {
     RP_AssetsSmallText
 } = require("./config/statusConfig.json")
 
-client.on('ready', async () => {
-    console.log(`
 
+client.on('ready', async () => {
+
+  
+    console.log(`
 ███╗░░░███╗██╗░░░██╗████████╗██╗██╗░░░░░░██████╗  ████████╗░█████╗░░█████╗░██╗░░░░░
 ████╗░████║██║░░░██║╚══██╔══╝██║██║░░░░░██╔════╝  ╚══██╔══╝██╔══██╗██╔══██╗██║░░░░░
 ██╔████╔██║██║░░░██║░░░██║░░░██║██║░░░░░╚█████╗░  ░░░██║░░░██║░░██║██║░░██║██║░░░░░
 ██║╚██╔╝██║██║░░░██║░░░██║░░░██║██║░░░░░░╚═══██╗  ░░░██║░░░██║░░██║██║░░██║██║░░░░░
 ██║░╚═╝░██║╚██████╔╝░░░██║░░░██║███████╗██████╔╝  ░░░██║░░░╚█████╔╝╚█████╔╝███████╗
 ╚═╝░░░░░╚═╝░╚═════╝░░░░╚═╝░░░╚═╝╚══════╝╚═════╝░  ░░░╚═╝░░░░╚════╝░░╚════╝░╚══════╝
-Made by hocsinhgioitoan Verion 1.3.1
+Made by hocsinhgioitoan Verion 1.3.2
 `)
     console.log('[LOGIN]'.green + ' Logged in as ' + client.user.tag.red);
     if (notice === true) {
@@ -121,7 +125,7 @@ Made by hocsinhgioitoan Verion 1.3.1
         console.log(`Joined voice ` + voiceName + " in " + guildName)
         setInterval(function() {
             joinVoice(client, guildID, channelID)
-            console.log("Join again".red)
+            console.log("Join again".blue)
         }, 1000 * 60 * 5);
     } else {
         console.log("Turned off mode auto voice".blue)
@@ -135,6 +139,8 @@ function joinVoice(client, guildID, channelID) {
     joinVoiceChannel({
         channelId: channelID,
         guildId: guildID,
+        selfDeaf: selfDeaf,
+        selfMute: selfMute,
         adapterCreator: client.guilds.cache.get(guildID).voiceAdapterCreator
     })
 }
