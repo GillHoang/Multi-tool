@@ -1,10 +1,10 @@
 {
   "checkUpdatePackage": false,
   "mobileStatus": false,
-  "autoVoice": false,
-  "channelID": "id",
-  "guildID": "id",
-  "notice": false,
+  "autoVoice": true,
+  "channelID": "963755112508043317",
+  "guildID": "963755112508043314",
+  "notice": true,
   "syncStatus": false,
   "selfDeaf": false,
   "selfMute": false

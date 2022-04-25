@@ -18,8 +18,13 @@ const {
 } = require("./config/mainConfig.json")
 const online = require("./utils/online.js")
 online()
+const {
+    messageOnline
+} = require("./config/other.json")
 var colors = require('colors');
-const { logger } = require("./utils/logger");
+const {
+    logger
+} = require("./utils/logger");
 const client = new Client({
     checkUpdate: checkUpdatePackage,
     readyStatus: syncStatus,
@@ -53,30 +58,30 @@ const {
 
 
 client.on('ready', async () => {
-
-  
-    console.log(`
+    logger.info(`
 ███╗░░░███╗██╗░░░██╗████████╗██╗██╗░░░░░░██████╗  ████████╗░█████╗░░█████╗░██╗░░░░░
 ████╗░████║██║░░░██║╚══██╔══╝██║██║░░░░░██╔════╝  ╚══██╔══╝██╔══██╗██╔══██╗██║░░░░░
 ██╔████╔██║██║░░░██║░░░██║░░░██║██║░░░░░╚█████╗░  ░░░██║░░░██║░░██║██║░░██║██║░░░░░
 ██║╚██╔╝██║██║░░░██║░░░██║░░░██║██║░░░░░░╚═══██╗  ░░░██║░░░██║░░██║██║░░██║██║░░░░░
 ██║░╚═╝░██║╚██████╔╝░░░██║░░░██║███████╗██████╔╝  ░░░██║░░░╚█████╔╝╚█████╔╝███████╗
 ╚═╝░░░░░╚═╝░╚═════╝░░░░╚═╝░░░╚═╝╚══════╝╚═════╝░  ░░░╚═╝░░░░╚════╝░░╚════╝░╚══════╝
-Made by hocsinhgioitoan Verion 1.3.3
-`)
-    console.log('[LOGIN]'.green + ' Logged in as ' + client.user.tag.red);
-    //logger.info("[LOGIN] ".green + "logged in as "+ client.user.tag.red)
+Made by hocsinhgioitoan Verion 1.4.0 - Version log remake
+`.blue)
+    logger.info("[LOGIN] ".green + "logged in as " + client.user.tag.red)
     if (notice === true) {
-        if (!process.env.WH_URL) throw new TypeError("Invalid Webhook Link. Please check here https://github.com/hocsinhgioitoan/Mutil-tool#env-required")
-        const WebHookClient = new Discord.WebhookClient({
-            url: process.env.WH_URL
-        });
-        
-        WebHookClient.send({
-            content: 'Hello! :wave:\n' + client.ws.ping + 'ms - <t:' + Math.floor(Date.now() / 1000) + ':R>'
-        });
+        if (!process.env.WH_URL) {
+            return logger.error("Invalid Webhook Link. Please check here https://github.com/hocsinhgioitoan/Mutil-tool#env-required")
+        } else {
+            const WebHookClient = new Discord.WebhookClient({
+                url: process.env.WH_URL
+            });
+
+            WebHookClient.send({
+                content: messageOnline.replace(/<ping>/g, client.ws.ping).replace(/<ms>/g, Math.floor(Date.now() / 1000))
+            });
+        }
     }
-    if (mobileStatus === true) console.log(` If you don't see your account showing mobile status because it's visible to others but not to you.\n It will take a while for it to show the mobile status so please be patient`.green)
+    if (mobileStatus === true) logger.warn(` If you don't see your account showing mobile status because it's visible to others but not to you.\n It will take a while for it to show the mobile status so please be patient`.green)
     if (CSorRP == "CS") {
         if (CS_EmojiOrUnicode == "emoji") {
             const custom = new RichPresence.CustomStatus()
@@ -95,7 +100,7 @@ Made by hocsinhgioitoan Verion 1.3.3
                 .toDiscord();
             client.user.setActivity(custom);
         } else {
-            console.log("Invalid Settings (emoji / unicode)".red)
+            logger.error("Invalid Settings (emoji / unicode)".red)
         }
     } else if (CSorRP == "RP") {
         const RPC = require('discord-rpc-contructor');
@@ -117,19 +122,19 @@ Made by hocsinhgioitoan Verion 1.3.3
         client.user.setActivity(r.toDiscord().game);
         // Button not working
     } else {
-        console.log("Invalid Settings (CS / RP)".red)
+        logger.error("Invalid Settings (CS / RP)".red)
     }
     if (autoVoice === true) {
         joinVoice(client, guildID, channelID)
         const voiceName = client.channels.cache.get(channelID).name
         const guildName = client.guilds.cache.get(guildID).name
-        console.log(`Joined voice ` + voiceName + " in " + guildName)
+        logger.new(`Joined voice ` + voiceName + " in " + guildName)
         setInterval(function() {
             joinVoice(client, guildID, channelID)
-            console.log("Join again".blue)
+            logger.update("Join again".blue)
         }, 1000 * 60 * 5);
     } else {
-        console.log("Turned off mode auto voice".blue)
+        logger.warn("Turned off mode auto voice".blue)
     }
 })
 
