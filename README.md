@@ -2,7 +2,7 @@
 - Using [discord.js-selfbot-v13](https://github.com/aiko-chan-ai/discord.js-selfbot-v13) [ver 1.3.91]
 - More feature? Coming Soon maybe after my exam.
 - Have bug? Please open issues, i will help you [here](https://github.com/hocsinhgioitoan/Auto-Voice-/issues)
-- Currently version: 1.3.2
+- Currently version: 1.3.3
 
 ## Checklist
 - [x] Auto voice when ready

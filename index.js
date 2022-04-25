@@ -14,12 +14,12 @@ const {
     mobileStatus,
     syncStatus,
     selfDeaf,
-    selfMure
+    selfMute
 } = require("./config/mainConfig.json")
 const online = require("./utils/online.js")
 online()
 var colors = require('colors');
-
+const { logger } = require("./utils/logger");
 const client = new Client({
     checkUpdate: checkUpdatePackage,
     readyStatus: syncStatus,
@@ -62,9 +62,10 @@ client.on('ready', async () => {
 ██║╚██╔╝██║██║░░░██║░░░██║░░░██║██║░░░░░░╚═══██╗  ░░░██║░░░██║░░██║██║░░██║██║░░░░░
 ██║░╚═╝░██║╚██████╔╝░░░██║░░░██║███████╗██████╔╝  ░░░██║░░░╚█████╔╝╚█████╔╝███████╗
 ╚═╝░░░░░╚═╝░╚═════╝░░░░╚═╝░░░╚═╝╚══════╝╚═════╝░  ░░░╚═╝░░░░╚════╝░░╚════╝░╚══════╝
-Made by hocsinhgioitoan Verion 1.3.2
+Made by hocsinhgioitoan Verion 1.3.3
 `)
     console.log('[LOGIN]'.green + ' Logged in as ' + client.user.tag.red);
+    //logger.info("[LOGIN] ".green + "logged in as "+ client.user.tag.red)
     if (notice === true) {
         if (!process.env.WH_URL) throw new TypeError("Invalid Webhook Link. Please check here https://github.com/hocsinhgioitoan/Mutil-tool#env-required")
         const WebHookClient = new Discord.WebhookClient({
