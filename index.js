@@ -12,7 +12,8 @@ const {
     version,
     description,
     name, 
-    author
+    author,
+    patch_version
 } = require("./package.json")
 var colors = require('colors');
 const {
@@ -32,9 +33,9 @@ const client = new Client({
 const axios = require('axios');
 const SourceBin = require('sourcebin-wrapper');
 
-
+ 
 axios.get('https://api.github.com/repos/hocsinhgioitoan/Mutil-tool/releases/latest').then(resp => {
-    if (resp.data.tag_name !== "v" + version) {
+    if (resp.data.tag_name || patch_version !== "v" + version) {
         logger.warn("There is a new update, please update to the new version: ".red + resp.data.tag_name.green)
         logger.update(`Info update: ${resp.data.tag_name.green}
 Description:
@@ -43,9 +44,11 @@ Download here: https://github.com/hocsinhgioitoan/Mutil-tool/releases/
 Clone replit: https://replit.com/github/hocsinhgioitoan/Mutil-tool
 `)
     } else {
+      
         logger.info(`No new updates at the moment, feel free`.green)
     }
 });
+
 logger.info(`
 ███╗░░░███╗██╗░░░██╗████████╗██╗██╗░░░░░░██████╗  ████████╗░█████╗░░█████╗░██╗░░░░░
 ████╗░████║██║░░░██║╚══██╔══╝██║██║░░░░░██╔════╝  ╚══██╔══╝██╔══██╗██╔══██╗██║░░░░░
