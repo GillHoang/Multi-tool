@@ -18,6 +18,7 @@ var colors = require('colors');
 const {
     logger
 } = require("./utils/logger");
+const online = require("./utils/online.js")
 const fs = require('fs');
 const client = new Client({
     checkUpdate: checkUpdatePackage,
@@ -55,15 +56,11 @@ logger.info(`
 Made by ${author} Verion v${version} - ${description}
 `.blue)
 
-fs.readdirSync('./src/events').forEach((category) => {
-    const eventsFiles = fs.readdirSync('./src/events/' + category + '/').filter((file) => file.endsWith('js'));
-    for (const file of eventsFiles) {
-        let event = require('./src/events/' + category + '/' + file);
-        logger.info('[EVENTS]'.cyan + ' Event ' + file.blue + ' of the category ' + category.magenta + ' loaded')
-        client.on(file.split(".")[0], (...args) => event(client, ...args));
-    };
-});
-
+function init() {
+  loadEvent()
+  online()
+}
+init()
 process.on('unhandledRejection', error => {
     if (notice === true) {
         if (!process.env.WH_URL) {
@@ -80,3 +77,11 @@ process.on('unhandledRejection', error => {
     }
 });
 client.login(process.env["token"] || process.env["TOKEN"]); // Don't paste your token here 
+function loadEvent(){fs.readdirSync('./src/events').forEach((category) => {
+    const eventsFiles = fs.readdirSync('./src/events/' + category + '/').filter((file) => file.endsWith('js'));
+    for (const file of eventsFiles) {
+        let event = require('./src/events/' + category + '/' + file);
+        logger.info('[EVENTS]'.cyan + ' Event ' + file.blue + ' of the category ' + category.magenta + ' loaded')
+        client.on(file.split(".")[0], (...args) => event(client, ...args));
+    };
+});}

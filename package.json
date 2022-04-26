@@ -1,6 +1,6 @@
 {
   "name": "Mutil tool",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Version change the structure of the code",
   "main": "index.js",
   "scripts": {
