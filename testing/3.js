@@ -1,7 +1,7 @@
 const axios = require('axios');
 const SourceBin = require('sourcebin-wrapper');
-axios.get('https://api.github.com/repos/hocsinhgioitoan/Mutil-tool/releases/latest').then(resp => {
-console.log(resp.data.tag_name)
+axios.get('https://raw.githubusercontent.com/hocsinhgioitoan/Mutil-tool/main/version.json').then(resp => {
+console.log(resp.data.patch)
 
 
 });
