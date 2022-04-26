@@ -1,6 +1,6 @@
 {
   "patch": "patch-0.1",
   "patch_description": "New update function UpdateNotice",
-  "version": "2.1.0",
+  "version": "2.0.0",
   "version_description": "- Change the structure of the code\r\n- Added notice a update from repo\r\n- Added error message webhook"
 }
