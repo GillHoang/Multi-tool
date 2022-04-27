@@ -15,13 +15,11 @@ const {
     name,
     author,
     patch_version
-
 } = require("./package.json")
 var colors = require('colors');
 const {
     logger
 } = require("./utils/logger");
-
 const online = require("./utils/online.js")
 const fs = require('fs');
 const client = new Client({
@@ -35,6 +33,7 @@ const client = new Client({
 })
 const axios = require('axios');
 const SourceBin = require('sourcebin-wrapper');
+
 
 if (updateTool === true) {
     axios.get('https://raw.githubusercontent.com/hocsinhgioitoan/Mutil-tool/main/version.json').then(resp => {
@@ -63,7 +62,6 @@ Clone replit: https://replit.com/github/hocsinhgioitoan/Mutil-tool
     });
 }
 
-
 logger.info(`
 ███╗░░░███╗██╗░░░██╗████████╗██╗██╗░░░░░░██████╗  ████████╗░█████╗░░█████╗░██╗░░░░░
 ████╗░████║██║░░░██║╚══██╔══╝██║██║░░░░░██╔════╝  ╚══██╔══╝██╔══██╗██╔══██╗██║░░░░░
@@ -71,7 +69,7 @@ logger.info(`
 ██║╚██╔╝██║██║░░░██║░░░██║░░░██║██║░░░░░░╚═══██╗  ░░░██║░░░██║░░██║██║░░██║██║░░░░░
 ██║░╚═╝░██║╚██████╔╝░░░██║░░░██║███████╗██████╔╝  ░░░██║░░░╚█████╔╝╚█████╔╝███████╗
 ╚═╝░░░░░╚═╝░╚═════╝░░░░╚═╝░░░╚═╝╚══════╝╚═════╝░  ░░░╚═╝░░░░╚════╝░░╚════╝░╚══════╝
-Made by ${author} Verion v${version} - Patch: ${patch_version}- ${description}
+Made by ${author} Verion v${version} - ${description}
 `.blue)
 
 function init() {
@@ -81,9 +79,8 @@ function init() {
 init()
 process.on('unhandledRejection', error => {
     if (notice === true) {
-
         if (!process.env.WH_URL) {
-            return logger.error("Invalid Webhook Link. Please check here Fhttps://github.com/hocsinhgioitoan/Mutil-tool#env-required")
+            return logger.error("Invalid Webhook Link. Please check here https://github.com/hocsinhgioitoan/Mutil-tool#env-required")
         } else {
             console.error(error)
             const WebHookClient = new Discord.WebhookClient({
@@ -95,9 +92,6 @@ process.on('unhandledRejection', error => {
         }
     }
 });
-if (!process.env["token"] || process.env["TOKEN"]) {
-    return logger.error("Missing token please enter token in secret tab to run this selfbot")
-}
 client.login(process.env["token"] || process.env["TOKEN"]); // Don't paste your token here 
 function loadEvent() {
     fs.readdirSync('./src/events').forEach((category) => {

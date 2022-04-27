@@ -1,7 +1,7 @@
 {
   "name": "Mutil tool",
   "version": "2.0.0",
-  "patch_version": "patch-0.3",
+  "patch_version": "patch-0.4",
   "description": "Version change the structure of the code",
   "main": "index.js",
   "scripts": {
