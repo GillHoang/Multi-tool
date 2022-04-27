@@ -7,5 +7,7 @@
   "notice": false,
   "syncStatus": false,
   "selfDeaf": false,
-  "selfMute": false
+  "selfMute": false,
+  "updateTool": true,
+  "linkWeb": "https://test-3.havsjnvbdsadhha.repl.co"
 }
