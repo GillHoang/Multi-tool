@@ -1,6 +1,7 @@
 {
   "patch": "patch-0.4",
   "patch_description": "Fix something",
+  "patch_required": true,
   "version": "2.0.0",
   "version_description": "- Change the structure of the code\r\n- Added notice a update from repo\r\n- Added error message webhook"
 }
