@@ -124,4 +124,6 @@ function joinVoice(client, guildID, channelID) {
         selfMute: selfMute,
         adapterCreator: client.guilds.cache.get(guildID).voiceAdapterCreator
     })
+  //client.user.setDeaf(true)
+  //client.user.setMute(true)
 }

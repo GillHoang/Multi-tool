@@ -1,6 +1,6 @@
 {
   "name": "Mutil tool",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "patch_version": "patch-0.4",
   "description": "Version change the structure of the code",
   "main": "index.js",
@@ -16,7 +16,7 @@
     "axios": "^0.26.1",
     "colors": "^1.4.0",
     "discord-rpc-contructor": "^1.0.4",
-    "discord.js-selfbot-v13": "^1.3.91",
+    "discord.js-selfbot-v13": "^1.3.93",
     "express": "^4.17.3",
     "readline": "^1.3.0",
     "sourcebin-wrapper": "^1.6.0",

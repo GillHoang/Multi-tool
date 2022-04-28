@@ -1,6 +1,7 @@
 const Discord = require('discord.js-selfbot-v13');
 const {
-    Client
+    Client,
+    WebhookClient
 } = require('discord.js-selfbot-v13');
 const {
     checkUpdatePackage,
@@ -33,12 +34,13 @@ const client = new Client({
 })
 const axios = require('axios');
 const SourceBin = require('sourcebin-wrapper');
-
-
+const lang = "en"
+const languageFile = require("./langauge/"+ lang+ ".js")
+console.log(languageFile.update["newUpdate"])
 if (updateTool === true) {
     axios.get('https://raw.githubusercontent.com/hocsinhgioitoan/Mutil-tool/main/version.json').then(resp => {
         if (resp.data.version !== version) {
-            logger.warn("There is a new update, please update to the new version: ".red + resp.data.version.green)
+            logger.warn(languageFile.update["newUpdate"].red + resp.data.version.green)
             logger.update(`Info update: ${resp.data.version.green}
 Description:
 ${resp.data.version_description}
@@ -103,3 +105,28 @@ function loadEvent() {
         };
     });
 }
+const anigame = ["571027211407196161"];//Anigame ID
+const config = require('./config/gameConfig.js')
+client.on('messageCreate', async message => {
+  if(anigame.includes(message.author.id)) {
+    if(config.servers.includes(message.guild.id)) {
+    message.embeds.forEach(async e => {
+      if(!e.title) return;
+      if(!e.footer) return;
+      if(e.title.includes("What's this?") && e.footer.text.includes(`Click on the claim button first to claim this card!`)) {
+        const label = 'Claim!'
+        const row = message.components[0];
+        const button = row.components.find(button_ => button_.label
+        == label);
+        if(!button) return;
+        button.click(message);
+        const hook = new WebhookClient({ url: config.webhook });
+        const d = new Date();
+        const x = d/1000;
+        hook.send(`<t:${Math.floor(x)}t:> | Claimed card in [${message.channel.name}](${message.channel.url})`)
+        console.log(`Claimed card in ${message.channel.name}`)
+      }
+    })
+  }
+  }
+})
