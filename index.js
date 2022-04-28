@@ -29,7 +29,7 @@ const client = new Client({
 });
 const axios = require("axios");
 const SourceBin = require("sourcebin-wrapper");
-const lang = "en";
+const lang = "vi";
 const languageFile = require("./langauge/" + lang + ".js");
 
 if (updateTool === true) {
