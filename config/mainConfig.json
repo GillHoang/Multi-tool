@@ -8,5 +8,6 @@
   "syncStatus": false,
   "selfDeaf": false,
   "selfMute": false,
-  "updateTool": true
+  "updateTool": true,
+  "languageTool": "vi"
 }

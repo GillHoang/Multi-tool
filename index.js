@@ -17,6 +17,7 @@ const {
 var colors = require("colors");
 const { logger } = require("./utils/logger");
 const online = require("./utils/online.js");
+const language = require("./utils/language.js")
 const fs = require("fs");
 const client = new Client({
   checkUpdate: checkUpdatePackage,
@@ -29,9 +30,9 @@ const client = new Client({
 });
 const axios = require("axios");
 const SourceBin = require("sourcebin-wrapper");
-const lang = "vi";
-const languageFile = require("./langauge/" + lang + ".js");
-
+//const lang = "vi";
+//const language = require("./language/" + lang + ".js");
+console.log(language("update", "newUpdate"))
 if (updateTool === true) {
   axios
     .get(
@@ -40,28 +41,28 @@ if (updateTool === true) {
     .then((resp) => {
       if (resp.data.version !== version) {
         logger.warn(
-          languageFile.update["newUpdate"].red + resp.data.version.green
+          language("update", "newUpdate").red + resp.data.version.green
         );
-        logger.update(`${languageFile.update["infoUpdate"]} ${resp.data.version.green}
-${languageFile.update["descriptionUpdate"]}:
+        logger.update(`${language("update", "infoUpdate")} ${resp.data.version.green}
+${language("update","descriptionUpdate")}:
 ${resp.data.version_description}
-${languageFile.update["download"]}: https://github.com/hocsinhgioitoan/Mutil-tool/releases/
-${languageFile.update["replitClone"]}: https://replit.com/github/hocsinhgioitoan/Mutil-tool
+${language("update","download")}: https://github.com/hocsinhgioitoan/Mutil-tool/releases/
+${language("update","replitClone")}: https://replit.com/github/hocsinhgioitoan/Mutil-tool
 `);
       } else if (resp.data.patch !== patch_version) {
         if (resp.data.patch_required === true) {
           logger.warn(
-            languageFile.update["newPatchUpdate"].red + resp.data.patch.green
+            language("update","newPatchUpdate").red + resp.data.patch.green
           );
-          logger.update(`${languageFile.update["patchUpdateInfo"]}: ${resp.data.patch.green}
-${languageFile.update["descriptionUpdate"]}:
+          logger.update(`${language("update","patchUpdateInfo")}: ${resp.data.patch.green}
+${language("update","descriptionUpdate")}:
 ${resp.data.version_description}
-${languageFile.update["download"]}: https://github.com/hocsinhgioitoan/Mutil-tool/releases/
-${languageFile.update["replitClone"]}: https://replit.com/github/hocsinhgioitoan/Mutil-tool
+${language("update","download")}: https://github.com/hocsinhgioitoan/Mutil-tool/releases/
+${language("update","replitClone")}: https://replit.com/github/hocsinhgioitoan/Mutil-tool
 `);
         }
       } else {
-        logger.info(languageFile.update["noUpdate"].green);
+        logger.info(language("update","noUpdate").green);
       }
     });
 }
@@ -74,7 +75,7 @@ logger.info(
 ██║╚██╔╝██║██║░░░██║░░░██║░░░██║██║░░░░░░╚═══██╗  ░░░██║░░░██║░░██║██║░░██║██║░░░░░
 ██║░╚═╝░██║╚██████╔╝░░░██║░░░██║███████╗██████╔╝  ░░░██║░░░╚█████╔╝╚█████╔╝███████╗
 ╚═╝░░░░░╚═╝░╚═════╝░░░░╚═╝░░░╚═╝╚══════╝╚═════╝░  ░░░╚═╝░░░░╚════╝░░╚════╝░╚══════╝
-Made by ${author} Verion v${version} - ${description}
+${language("introduce", "madeBy")} ${author} ${language("introduce", "version")}${version} - ${description}
 `.blue
 );
 
@@ -87,7 +88,7 @@ process.on("unhandledRejection", (error) => {
   if (notice === true) {
     if (!process.env.WH_URL) {
       return logger.error(
-        "Invalid Webhook Link. Please check here https://github.com/hocsinhgioitoan/Mutil-tool#env-required"
+       language("WH", "invalidWH")
       );
     } else {
       console.error(error);
@@ -149,7 +150,7 @@ client.on("messageCreate", async (message) => {
               message.channel.name
             }](${message.channel.url})`
           );
-          console.log(`Claimed card in ${message.channel.name}`);
+          console.log(language("aniGame", "claimedCard")(message.channel.name));
         }
       });
     }

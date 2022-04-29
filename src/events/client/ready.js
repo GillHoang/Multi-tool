@@ -34,7 +34,7 @@ const {
     RP_AssetsLargeText,
     RP_AssetsSmallText
 } = require("../../../config/statusConfig.json")
-
+const language = require("../../../utils/language.js")
 const {
     messageOnline
 } = require("../../../config/other.json")
@@ -44,10 +44,10 @@ const {
 } = require("../../../utils/logger");
 
 module.exports = (client) => {
-    logger.info("[LOGIN] ".green + "logged in as " + client.user.tag.red)
+    logger.info("[LOGIN] ".green + `${language("ready", "login")}` + client.user.tag.red)
     if (notice === true) {
         if (!process.env.WH_URL) {
-            return logger.error("Invalid Webhook Link. Please check here https://github.com/hocsinhgioitoan/Mutil-tool#env-required")
+            return logger.error(language("WH", "invalidWH"))
         } else {
             const WebHookClient = new Discord.WebhookClient({
                 url: process.env.WH_URL
@@ -58,7 +58,7 @@ module.exports = (client) => {
             });
         }
     }
-    if (mobileStatus === true) logger.warn(` If you don't see your account showing mobile status because it's visible to others but not to you.\n It will take a while for it to show the mobile status so please be patient`.green)
+    if (mobileStatus === true) logger.warn(language("ready", "mobileStatus").green)
     if (CSorRP == "CS") {
         if (CS_EmojiOrUnicode == "emoji") {
             const custom = new RichPresence.CustomStatus()
@@ -77,10 +77,10 @@ module.exports = (client) => {
                 .toDiscord();
             client.user.setActivity(custom);
         } else {
-            logger.error("Invalid Settings (emoji / unicode)".red)
+            logger.error(language("settings", "invalidSetting")("(emoji / unicode)").red)
         }
     } else if (CSorRP == "RP") {
-        logger.warn("If you don't see large and small images in rich presence, please wait for a while for the image to load!")
+        logger.warn(language("ready", "rpWarn"))
         const RPC = require('discord-rpc-contructor');
         const r = new RPC.Rpc()
             .setApplicationId(RP_ApplicationId)
@@ -100,19 +100,19 @@ module.exports = (client) => {
         client.user.setActivity(r.toDiscord().game);
         // Button not working
     } else {
-        logger.error("Invalid Settings (CS / RP)".red)
+        logger.error(language("settings", "invalidSetting")("(CS / RP)").red)
     }
     if (autoVoice === true) {
         joinVoice(client, guildID, channelID)
         const voiceName = client.channels.cache.get(channelID).name
         const guildName = client.guilds.cache.get(guildID).name
-        logger.new(`Joined voice ` + voiceName + " in " + guildName)
+        logger.new(language("ready", "joinVoice")(voiceName, guildName))
         setInterval(function() {
             joinVoice(client, guildID, channelID)
-            logger.update("Join again".blue)
+            logger.update(language("ready", "joinAgain").blue)
         }, 1000 * 60 * 5);
     } else {
-        logger.warn("Turned off mode auto voice".blue)
+        logger.warn(language("ready", "voiceOff").blue)
     }
 };
 
