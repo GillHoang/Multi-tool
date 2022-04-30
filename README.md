@@ -1,4 +1,14 @@
-# Auto voice v1
+
+# This source code is made from start to finish by hocsinhgioitoan, so who this tool is sold by we are not responsible and it is OPEN SOURCE, join our server to get help [here](https://discord.gg/R7948YWRZP) . Love you everybody
+
+
+
+
+
+
+
+
+## Auto voice v1
 - Using [discord.js-selfbot-v13](https://github.com/aiko-chan-ai/discord.js-selfbot-v13) [ver 1.3.94]
 - More feature? Coming Soon maybe after my exam.
 - Have bug? Please open issues, i will help you [here](https://github.com/hocsinhgioitoan/Auto-Voice-/issues)
