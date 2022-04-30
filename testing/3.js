@@ -1,7 +1,9 @@
-const axios = require('axios');
-const SourceBin = require('sourcebin-wrapper');
-axios.get('https://raw.githubusercontent.com/hocsinhgioitoan/Mutil-tool/main/version.json').then(resp => {
-console.log(resp.data)
-
-
-});
+const axios = require("axios")
+function randomText(axios,client) {
+  axios.get("https://quote-garden.herokuapp.com/api/v3/quotes/random").then(resp => {
+    const mess = resp.data.data
+    console.log(mess[0].quoteText)
+    
+  })
+} 
+console.log(randomText(axios))

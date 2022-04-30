@@ -1,13 +1,14 @@
 {
-  "checkUpdatePackage": false,
-  "mobileStatus": false,
-  "autoVoice": false,
-  "channelID": "id",
-  "guildID": "id",
-  "notice": false,
-  "syncStatus": false,
-  "selfDeaf": false,
-  "selfMute": false,
-  "updateTool": true,
-  "languageTool": "vi"
+    "checkUpdatePackage": false,
+    "mobileStatus": false,
+    "autoVoice": false,
+    "channelID": "id",
+    "guildID": "id",
+    "notice": false,
+    "syncStatus": false,
+    "selfDeaf": false,
+    "selfMute": false,
+    "updateTool": false,
+    "languageTool": "en",
+    "spamMessage": false
 }

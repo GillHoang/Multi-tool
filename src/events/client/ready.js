@@ -12,7 +12,9 @@ const {
     mobileStatus,
     syncStatus,
     selfDeaf,
-    selfMute
+    selfMute,
+    spamMessage,
+    channelSpam
 } = require("../../../config/mainConfig.json")
 const RichPresence = require('discord-rpc-contructor');
 const {
@@ -42,7 +44,8 @@ var colors = require('colors');
 const {
     logger
 } = require("../../../utils/logger");
-
+const axios = require("axios")
+const config = require("../../../config/gameConfig.js");
 module.exports = (client) => {
     logger.info("[LOGIN] ".green + `${language("ready", "login")}` + client.user.tag.red)
     if (notice === true) {
@@ -113,8 +116,16 @@ module.exports = (client) => {
         }, 1000 * 60 * 5);
     } else {
         logger.warn(language("ready", "voiceOff").blue)
+    };
+    if (spamMessage === true) {
+        const axios = require("axios")
+        randomText(axios, client)
+        setInterval(function() {
+            randomText(axios, client)
+        }, 5000)
     }
-};
+
+}
 
 function joinVoice(client, guildID, channelID) {
     joinVoiceChannel({
@@ -124,6 +135,34 @@ function joinVoice(client, guildID, channelID) {
         selfMute: selfMute,
         adapterCreator: client.guilds.cache.get(guildID).voiceAdapterCreator
     })
-  //client.user.setDeaf(true)
-  //client.user.setMute(true)
+    //client.user.setDeaf(true)
+    //client.user.setMute(true)
+}
+
+function randomText(axios, client) {
+    axios.get("https://quote-garden.herokuapp.com/api/v3/quotes/random").then(resp => {
+        const mess = resp.data.data[0].quoteText
+        const c = randomChannel(client)
+        const channel = client.channels.cache.get(c)
+        channel.send(mess)
+        logger.info(language("ready", "sendMessage")(chanel.name))
+
+    })
+}
+
+function randomChannel(client) {
+    const guildMap = [],
+        guildMapAfter = []
+    const guild = client.guilds.cache.get(guildID)
+    guild.channels.cache
+        .map(r =>
+            guildMap.push(r)
+        )
+    const mapt = guildMap.filter(e => e.type == "GUILD_TEXT")
+    mapt.map(r =>
+        guildMapAfter.push(r.id)
+    )
+    var id = guildMapAfter[Math.floor(Math.random()*guildMapAfter.length)];
+    return id
+    
 }

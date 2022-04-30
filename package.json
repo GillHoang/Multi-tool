@@ -1,11 +1,11 @@
 {
   "name": "Mutil tool",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "patch_version": "patch-0.4",
-  "description": "Version change the structure of the code",
+  "description": "Big Update",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node testing/3.js",
     "start": "node index.js"
   },
   "keywords": [],
@@ -18,6 +18,7 @@
     "discord-rpc-contructor": "^1.0.4",
     "discord.js-selfbot-v13": "^1.3.94",
     "express": "^4.17.3",
+    "quotegarden": "^1.1.0",
     "readline": "^1.3.0",
     "sourcebin-wrapper": "^1.6.0",
     "winston": "^3.7.2"

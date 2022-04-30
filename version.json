@@ -2,6 +2,6 @@
   "patch": "patch-0.4",
   "patch_description": "Add mutil language (en/vi)",
   "patch_required": true,
-  "version": "2.1.0",
-  "version_description": "- Change the structure of the code\r\n- Added notice a update from repo\r\n- Added error message webhook"
+  "version": "2.2.0",
+  "version_description": "- Language updated \n Added Spam message \n Added auto channel for spam message \n Added sniper card for aniGame \n More"
 }
