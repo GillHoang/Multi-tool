@@ -1,6 +1,6 @@
 {
   "name": "Mutil tool",
-  "version": "2.2.0",
+  "version": "2.1.0",
   "patch_version": "patch-0.4",
   "description": "Big Update",
   "main": "index.js",
