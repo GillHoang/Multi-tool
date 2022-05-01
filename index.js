@@ -18,11 +18,17 @@ const {
     author,
     patch_version,
 } = require("./package.json");
+const {
+    giveawayBot,
+    waittime,
+    uid,
+    dmToHost
+} = require("./config/giveawayConfig.json")
 var colors = require("colors");
 const {
     logger
 } = require("./utils/logger");
-const online = require("./utils/online.js");
+//const online = require("./utils/online.js");
 const language = require("./utils/language.js")
 const fs = require("fs");
 const client = new Client({
@@ -87,7 +93,7 @@ ${language("introduce", "madeBy")} ${author} ${language("introduce", "version")}
 
 function init() {
     loadEvent();
-    online();
+    //online();
 }
 init();
 process.on("unhandledRejection", (error) => {
@@ -127,8 +133,28 @@ function loadEvent() {
         }
     });
 }
-const anigame = ["571027211407196161"]; //Anigame ID
+
+const d = new Date();
+const x = d / 1000;
+const express = require('express');
+const app = express();
+app.get('/', (req, res) => {
+    res.send('Your selfbot is online!')
+});
+var server = app.listen(3000, () => {
+    logger.info('Web is used to host 24/7 online ');
+});
+const mySecret = process.env['WH_URL']
+const hook1 = new WebhookClient({
+    url: mySecret
+});
 const config = require("./config/gameConfig.js");
+if (config.fisher.ONorOFF === true) {
+    logger.warn("BETA FISH AUTO. YOU WILL GET BAN ANY TIME FROM IT!!")
+}
+const anigame = ["571027211407196161"]; //Anigame ID
+const fisher = ["574652751745777665"];
+
 client.on("messageCreate", async (message) => {
     if (config.aniGame.ONorOFF === true) {
         if (anigame.includes(message.author.id)) {
@@ -152,18 +178,80 @@ client.on("messageCreate", async (message) => {
                         const hook = new WebhookClient({
                             url: config.aniGame.webhook
                         });
-                        const d = new Date();
-                        const x = d / 1000;
                         hook.send(
                             `<t:${Math.floor(x)}t:> | Claimed card in [${
               message.channel.name
             }](${message.channel.url})`
                         );
-                        console.log(language("aniGame", "claimedCard")(message.channel.name));
+                        logger.info(language("aniGame", "claimedCard")(message.channel.name));
                     }
                 });
             }
         }
     }
+    if (config.fisher.ONorOFF === true) {
 
-});
+        if (fisher.includes(message.author.id)) {
+            message.embeds.forEach(async (e) => {
+                if (!e.title) return;
+                if (!e.footer) return;
+                if (e.title.includes("Anti-bot")) {
+                    hook1.send(
+                        `<t:${Math.floor(x)}t:> | got captcha [${
+              message.channel.name
+            }](${message.channel.url})`)
+                    closeServer()
+                }
+                if (e.title.includes("You caught:")) {
+                    setInterval(function() {
+                        const label = "Sell";
+                        const row = message.components[0];
+                        if (!row) return
+                        const button = row.components.find(
+                            (button_) => button_.label == label
+                        );
+                        if (!button) return;
+                        button.click(message);
+                        logger.info("Sell fish")
+                    }, 1000 * 60)
+                }
+            })
+        }
+    }
+    if (giveawayBot == "GiveawayBot") {
+        if (message.author.id === "294882584201003009" && message.content.includes(`<:yay:585696613507399692>   **GIVEAWAY**   <:yay:585696613507399692>`)) {
+            setTimeout(function() {
+                message.react('🎉').then(hook1.send(language("giveaway", "joinGiveaway") + `#**__${message.channel.name}__** (${message.guild.name})`))
+            }, waittime * 1000);
+        };
+        if (message.author.id === "294882584201003009" && message.content.includes(`Congratulations <@${uid}>!`)) {
+            hook1.send(language("giveaway", "winGiveaway") + `#**__${message.channel.name}__** (${message.guild.name})`)
+        };
+
+    } else if (giveawayBot == "CatBot") {
+        if (message.author.id === "574812330760863744") {
+            message.embeds.forEach(async (e) => {
+                //  console.log(e)
+                if (!e.title) return;
+                if (!e.footer) return;
+                if (e.author.name.includes("GIVEAWAY STARTED")) {
+                    setTimeout(function() {
+                        message.react('740862018948694056').then(hook1.send(language("giveaway", "joinGiveaway") + `#**__${message.channel.name}__** (${message.guild.name})`))
+                    }, waittime * 1000);
+                }
+            })
+
+        };
+        if (message.author.id === "574812330760863744" && message.content.includes(`Congratz <@${uid}>, you won the giveaway`)) {
+            hook1.send(language("giveaway", "winGiveaway") + `#**__${message.channel.name}__** (${message.guild.name})`)
+        };
+
+    }
+})
+
+function closeServer() {
+    server.close((err) => {
+        console.log('server closed')
+        process.exit(err ? 1 : 0)
+    })
+}

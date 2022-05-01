@@ -1,8 +1,8 @@
 {
   "name": "Mutil tool",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "patch_version": "patch-0.4",
-  "description": "Big Update",
+  "description": "Added Giveaway sniper for 2 bots, fix some bug",
   "main": "index.js",
   "scripts": {
     "test": "node testing/3.js",

@@ -1,14 +1,14 @@
 {
-    "checkUpdatePackage": false,
+    "checkUpdatePackage": true,
     "mobileStatus": false,
     "autoVoice": false,
     "channelID": "id",
-    "guildID": "id",
+    "guildID": "",
     "notice": false,
     "syncStatus": false,
     "selfDeaf": false,
     "selfMute": false,
-    "updateTool": false,
+    "updateTool": true,
     "languageTool": "en",
     "spamMessage": false
 }

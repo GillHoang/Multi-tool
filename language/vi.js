@@ -26,5 +26,9 @@ module.exports = {
     },
     settings: {
         invalidSetting: (mode) => `Setting không hợp lệ ${mode}`
+    },
+    giveaway: {
+        joinGiveaway: "Bạn đã tham gia vào một giveaway ở ",
+        winGiveaway: "Bạn đã win giveway ở "
     }
 }

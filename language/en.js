@@ -27,9 +27,13 @@ module.exports = {
         joinAgain: "Join again",
         voiceOff: "Turned off mode auto voice",
         rpWarn: "If you don't see large and small images in rich presence, please wait for a while for the image to load!",
-        sendMessage: (name) => "Sent spam message. " + `Channel name: ` + name 
+        sendMessage: (name) => "Sent spam message. " + `Channel name: ` + name
     },
     settings: {
         invalidSetting: (mode) => `Invalid Settings ${mode}`
+    },
+    giveaway: {
+        joinGiveaway: "You participated in a giveaway in ",
+        winGiveaway: "You won the giveaway at "
     }
 }

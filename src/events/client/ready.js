@@ -124,7 +124,22 @@ module.exports = (client) => {
             randomText(axios, client)
         }, 5000)
     }
-
+    if (config.fisher.ONorOFF === true) {
+        const fisherPrefix = config.fisher.serverPrefix
+        if (config.fisher.randomChannel === true) {
+            const c = randomChannel(client)
+            const c_ = client.channels.cache.get(c)
+            c_.send(fisherPrefix + "f")
+            setInterval(function() {
+                const c1 = randomChannel(client)
+                const c_1 = client.channels.cache.get(c1)
+                c_1.send(fisherPrefix + "f")
+            }, 3600)
+        } else {
+            const channel1 = client.channels.cache.get(config.fisher.IDchannel)
+            channel1.send(fisherPrefix + "f")
+        }
+    }
 }
 
 function joinVoice(client, guildID, channelID) {
@@ -145,7 +160,7 @@ function randomText(axios, client) {
         const c = randomChannel(client)
         const channel = client.channels.cache.get(c)
         channel.send(mess)
-        logger.info(language("ready", "sendMessage")(chanel.name))
+        logger.info(language("ready", "sendMessage")(channel.name))
 
     })
 }
@@ -162,7 +177,7 @@ function randomChannel(client) {
     mapt.map(r =>
         guildMapAfter.push(r.id)
     )
-    var id = guildMapAfter[Math.floor(Math.random()*guildMapAfter.length)];
+    var id = guildMapAfter[Math.floor(Math.random() * guildMapAfter.length)];
     return id
-    
+
 }
