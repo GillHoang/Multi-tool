@@ -136,8 +136,13 @@ module.exports = (client) => {
                 c_1.send(fisherPrefix + "f")
             }, 3600)
         } else {
+
             const channel1 = client.channels.cache.get(config.fisher.IDchannel)
             channel1.send(fisherPrefix + "f")
+            setInterval(funtion() {
+                const channel1 = client.channels.cache.get(config.fisher.IDchannel)
+                channel1.send(fisherPrefix + "f")
+            })
         }
     }
 }

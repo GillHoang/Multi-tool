@@ -6,8 +6,8 @@ const config = {
     },
     fisher: {
         ONorOFF: true,
-        randomChannel: true,
-        IDchannel: "",
+        randomChannel: false,
+        IDchannel: "970134004235898960",
         serverPrefix: "%"
     }
 
