@@ -1,5 +1,5 @@
 {
-  "patch": "patch-0.5",
+  "patch": "patch-0.6",
   "patch_description": "Fixed bug",
   "patch_required": true,
   "version": "2.2.0",

@@ -14,7 +14,9 @@ const {
     selfDeaf,
     selfMute,
     spamMessage,
-    channelSpam
+    channelSpam,
+    randomChannelSpam,
+
 } = require("../../../config/mainConfig.json")
 const RichPresence = require('discord-rpc-contructor');
 const {
@@ -162,10 +164,16 @@ function joinVoice(client, guildID, channelID) {
 function randomText(axios, client) {
     axios.get("https://quote-garden.herokuapp.com/api/v3/quotes/random").then(resp => {
         const mess = resp.data.data[0].quoteText
-        const c = randomChannel(client)
-        const channel = client.channels.cache.get(c)
-        channel.send(mess)
-        logger.info(language("ready", "sendMessage")(channel.name))
+        if (randomChannelSpam === true) {
+            const c = randomChannel(client)
+            const channel = client.channels.cache.get(c)
+            channel.send(mess)
+            logger.info(language("ready", "sendMessage")(channel.name))
+        } else {
+            const channel = client.channels.cache.get(channelSpam)
+            channel.send(mess)
+            logger.info(language("ready", "sendMessage")(channel.name))
+        }
 
     })
 }

@@ -10,5 +10,7 @@
     "selfMute": false,
     "updateTool": true,
     "languageTool": "en",
+    "randomChannelSpam": true,
+    "channelSpam": "",
     "spamMessage": false
 }
