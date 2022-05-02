@@ -172,7 +172,7 @@ function randomText(axios, client) {
         } else {
             const channel = client.channels.cache.get(channelSpam)
             channel.send(mess)
-            logger.info(language("ready", "sendMessage")(channel.name))
+            //logger.info(language("ready", "sendMessage")(channel.name))
         }
 
     })

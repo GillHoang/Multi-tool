@@ -34,6 +34,7 @@ module.exports = {
     },
     giveaway: {
         joinGiveaway: "You participated in a giveaway in ",
-        winGiveaway: "You won the giveaway at "
+        winGiveaway: "You won the giveaway at ",
+        
     }
 }

@@ -2,6 +2,6 @@
   "patch": "patch-0.6",
   "patch_description": "Fixed bug",
   "patch_required": true,
-  "version": "2.2.0",
-  "version_description": "Added Giveaway sniper for 2 bots, fix some bug"
+  "version": "2.3.0",
+  "version_description": "Improve README.md, auto floor anigame, fix bug, change something, more"
 }

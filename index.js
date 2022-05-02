@@ -1,7 +1,8 @@
 const Discord = require("discord.js-selfbot-v13");
 const {
     Client,
-    WebhookClient
+    WebhookClient,
+    User
 } = require("discord.js-selfbot-v13");
 const {
     checkUpdatePackage,
@@ -9,7 +10,8 @@ const {
     syncStatus,
     notice,
     updateTool,
-    spamMessage
+    spamMessage,
+    fullUserName
 } = require("./config/mainConfig.json");
 const {
     version,
@@ -22,7 +24,8 @@ const {
     giveawayBot,
     waittime,
     uid,
-    dmToHost
+    dmToHost,
+    ONorOFF
 } = require("./config/giveawayConfig.json")
 var colors = require("colors");
 const {
@@ -40,11 +43,12 @@ const client = new Client({
         },
     },
 });
+console.log(client.user)
 const axios = require("axios");
 const SourceBin = require("sourcebin-wrapper");
 //const lang = "vi";
 //const language = require("./language/" + lang + ".js");
-
+const config = require("./config/gameConfig.js");
 if (updateTool === true) {
     axios
         .get(
@@ -90,6 +94,24 @@ logger.info(
 ${language("introduce", "madeBy")} ${author} ${language("introduce", "version")}${version} - ${description}
 `.blue
 );
+var AsciiTable = require('ascii-table')
+var table = new AsciiTable('GAME MODE: Ani Game')
+table
+    .setHeading('', 'Name', 'Status')
+    .addRow(1, 'Ani Game: ', config.aniGame.ONorOFF)
+    .addRow(2, 'Auto Battle', config.aniGame.autoBattle)
+var table1 = new AsciiTable('GAME MODE: Fisher')
+table1
+    .setHeading('', 'Name', 'Status')
+    .addRow(1, 'Fisher: ', config.fisher.ONorOFF)
+    .addRow(2, 'Auto Change Channel', config.fisher.randomChannel)
+var table2 = new AsciiTable('MODE: Giveaway')
+table2
+    .setHeading('', 'Name', 'Status')
+    .addRow(1, 'Giveaway: ', ONorOFF)
+    .addRow(2, 'Giveaway Bot', config.fisher.giveawayBot)
+console.log(table.toString())
+console.log(table1.toString())
 
 function init() {
     loadEvent();
@@ -113,6 +135,7 @@ process.on("unhandledRejection", (error) => {
         }
     }
 });
+
 client.login(process.env["token"] || process.env["TOKEN"]); // Don't paste your token here
 function loadEvent() {
     fs.readdirSync("./src/events").forEach((category) => {
@@ -148,7 +171,7 @@ const mySecret = process.env['WH_URL']
 const hook1 = new WebhookClient({
     url: mySecret
 });
-const config = require("./config/gameConfig.js");
+
 if (config.fisher.ONorOFF === true) {
     logger.warn("BETA FISH AUTO. YOU WILL GET BAN ANY TIME FROM IT!!")
 }
@@ -179,13 +202,39 @@ client.on("messageCreate", async (message) => {
                             url: config.aniGame.webhook
                         });
                         hook.send(
-                            `<t:${Math.floor(x)}t:> | Claimed card in [${
+                            `<t:${Math.floor(x)}:R> | Claimed card in [${
               message.channel.name
             }](${message.channel.url})`
                         );
                         logger.info(language("aniGame", "claimedCard")(message.channel.name));
                     }
-                });
+                })
+                message.embeds.forEach(async (e) => {
+                    if (!e.title) return
+                    if (!e.description) return
+                    if (e.title.includes(`**Successfully claimed by __${fullUserName}__** <:claimed:896016100976910346>`)) {
+                        const des = e.description
+                        const rarity = des.split("__", 2).toString()
+                        const r = rarity.slice(1)
+                        const name = des.split("**", 2)
+                        const n = name.slice(1).toString()
+                        if (r == "Rare" || r == "Ultra Rare" || r == "Super Rare") {
+                            console.log(r + " | " + n)
+                            hook1.send(`You got ` + r + "name is" + n)
+                        }
+                    }
+                })
+            }
+            if (config.aniGame.autoBattle === true) {
+                clickEnterBattle(client, message)
+                setInterval(function() {
+
+                    sendNextFloor(client, message)
+                    clickEnterBattle(client, message)
+                    //checkFloor(client, message)
+
+                }, 30000)
+
             }
         }
     }
@@ -197,9 +246,7 @@ client.on("messageCreate", async (message) => {
                 if (!e.footer) return;
                 if (e.title.includes("Anti-bot")) {
                     hook1.send(
-                        `<t:${Math.floor(x)}t:> | got captcha [${
-              message.channel.name
-            }](${message.channel.url})`)
+                        `<t:${Math.floor(x)}R:> | got captcha in ${message.channel.name}`)
                     closeServer()
                 }
                 if (e.title.includes("You caught:")) {
@@ -218,35 +265,37 @@ client.on("messageCreate", async (message) => {
             })
         }
     }
-    if (giveawayBot == "GiveawayBot") {
-        if (message.author.id === "294882584201003009" && message.content.includes(`<:yay:585696613507399692>   **GIVEAWAY**   <:yay:585696613507399692>`)) {
-            setTimeout(function() {
-                message.react('🎉').then(hook1.send(language("giveaway", "joinGiveaway") + `#**__${message.channel.name}__** (${message.guild.name})`))
-            }, waittime * 1000);
-        };
-        if (message.author.id === "294882584201003009" && message.content.includes(`Congratulations <@${uid}>!`)) {
-            hook1.send(language("giveaway", "winGiveaway") + `#**__${message.channel.name}__** (${message.guild.name})`)
-        };
+    if (ONorOFF === true) {
+        if (giveawayBot == "GiveawayBot") {
+            if (message.author.id === "294882584201003009" && message.content.includes(`<:yay:585696613507399692>   **GIVEAWAY**   <:yay:585696613507399692>`)) {
+                setTimeout(function() {
+                    message.react('🎉').then(hook1.send(language("giveaway", "joinGiveaway") + `#**__${message.channel.name}__** (${message.guild.name})`))
+                }, waittime * 1000);
+            };
+            if (message.author.id === "294882584201003009" && message.content.includes(`Congratulations <@${uid}>!`)) {
+                hook1.send(language("giveaway", "winGiveaway") + `#**__${message.channel.name}__** (${message.guild.name})`)
+            };
 
-    } else if (giveawayBot == "CatBot") {
-        if (message.author.id === "574812330760863744") {
-            message.embeds.forEach(async (e) => {
-                //  console.log(e)
-                if (!e.title) return;
-                if (!e.footer) return;
-                if (e.author.name.includes("GIVEAWAY STARTED")) {
-                    setTimeout(function() {
-                        message.react('740862018948694056').then(hook1.send(language("giveaway", "joinGiveaway") + `#**__${message.channel.name}__** (${message.guild.name})`))
-                    }, waittime * 1000);
-                }
-            })
-
-        };
-        if (message.author.id === "574812330760863744" && message.content.includes(`Congratz <@${uid}>, you won the giveaway`)) {
-            hook1.send(language("giveaway", "winGiveaway") + `#**__${message.channel.name}__** (${message.guild.name})`)
-        };
-
+        } else if (giveawayBot == "CatBot") {
+            if (message.author.id === "574812330760863744") {
+                message.embeds.forEach(async (e) => {
+                    //  console.log(e)
+                    if (!e.title) return;
+                    if (!e.footer) return;
+                    if (e.author.name.includes("GIVEAWAY STARTED")) {
+                        setTimeout(function() {
+                            message.react('740862018948694056').then(
+                                hook1.send(language("giveaway", "joinGiveaway") + `#**__${message.channel.name}__** (${message.guild.name})`))
+                        }, waittime * 1000);
+                    }
+                })
+            };
+            if (message.author.id === "574812330760863744" && message.content.includes(`Congratz <@${uid}>, you won the giveaway`)) {
+                hook1.send(language("giveaway", "winGiveaway") + `#**__${message.channel.name}__** (${message.guild.name})`)
+            };
+        }
     }
+
 })
 
 function closeServer() {
@@ -254,4 +303,48 @@ function closeServer() {
         console.log('server closed')
         process.exit(err ? 1 : 0)
     })
+}
+
+function sendNextFloor(client, message) {
+    message.embeds.forEach(async (e) => {
+        if (!e.footer) return
+
+
+
+        if (e.title.includes("Victory") && e.author.name.includes(client.user.username)) {
+
+            message.channel.send(".fl n")
+            logger.info("[BETA] Sent next floor")
+            message.channel.send(".bt")
+            logger.info("[BETA] Sent battle")
+
+        } else if (e.title.includes("Error ⛔") && e.description("you have not unlocked this floor yet! Please clear all previous floors in this location first.")) {
+            logger.info("[BETA] Waiting")
+            sleep(15000)
+        }
+    })
+}
+
+function clickEnterBattle(client, message) {
+    message.embeds.forEach(async (e) => {
+        if (!e.title) return;
+        //if (!e.footer) return;
+
+        if (
+            e.title.includes("Challenging Area")
+        ) {
+
+            const row = message.components[0];
+            const button = row.components.find(
+                (button_) => button_.emoji.name == "✅" || button_.label == null && button_.style == 'SUCCESS'
+            );
+            if (!button) return;
+            button.click(message);
+            logger.info("[BETA] Enter battle")
+        }
+    })
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }

@@ -1,8 +1,8 @@
 {
   "name": "Mutil tool",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "patch_version": "patch-0.6",
-  "description": "Added Giveaway sniper for 2 bots, fix some bug",
+  "description": "Improve README.md, auto floor anigame, fix bug, change something, more",
   "main": "index.js",
   "scripts": {
     "test": "node testing/3.js",
@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@discordjs/voice": "^0.8.0",
+    "ascii-table": "^0.0.9",
     "axios": "^0.26.1",
     "colors": "^1.4.0",
     "discord-rpc-contructor": "^1.0.4",

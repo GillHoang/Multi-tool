@@ -10,7 +10,8 @@
     "selfMute": false,
     "updateTool": true,
     "languageTool": "en",
-    "randomChannelSpam": true,
-    "channelSpam": "",
-    "spamMessage": false
+    "randomChannelSpam": false,
+    "channelSpam": "970134004235898960",
+    "spamMessage": true,
+    "fullUserName": "hacked hehehe#4324"
 }
