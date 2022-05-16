@@ -1,7 +1,7 @@
 const {
     joinVoiceChannel
 } = require("@discordjs/voice");
-
+require("dotenv").config()
 const Discord = require('discord.js-selfbot-v13');
 const {
     channelID,
@@ -50,6 +50,7 @@ const axios = require("axios")
 const config = require("../../../config/gameConfig.js");
 module.exports = (client) => {
     logger.info("[LOGIN] ".green + `${language("ready", "login")}` + client.user.tag.red)
+    client.user.setStatus("dnd")
     if (notice === true) {
         if (!process.env.WH_URL) {
             return logger.error(language("WH", "invalidWH"))
@@ -146,6 +147,29 @@ module.exports = (client) => {
                 channel1.send(fisherPrefix + "f")
             }, 3500)
         }
+    } 
+    if (config.catbot.ONorOFF === true) {
+        const id_channel_cat = client.channels.cache.get(config.catbot.IDchannel)
+        sleep(2000)
+        id_channel_cat.send("catw")
+        sleep(3000)
+        id_channel_cat.send("cat c c")
+        sleep(4000)
+        id_channel_cat.send("cat f")
+        sleep(3000)
+        setInterval(function() {
+            id_channel_cat.send("catw")
+            sleep(3000)
+        }, randomIntFromInterval(45, 55) * 1000)
+        setInterval(function() {
+            id_channel_cat.send("cat c c")
+            sleep(3000)
+        }, randomIntFromInterval(30, 45) * 1000)
+        setInterval(function() {
+            id_channel_cat.send("cat f")
+            sleep(3000)
+        }, randomIntFromInterval(15, 25) * 1000)
+        
     }
 }
 
@@ -194,3 +218,10 @@ function randomChannel(client) {
     return id
 
 }
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+function randomIntFromInterval(min, max) { // min and max included 
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+

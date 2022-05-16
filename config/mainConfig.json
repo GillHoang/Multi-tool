@@ -1,17 +1,17 @@
 {
-    "checkUpdatePackage": true,
+    "checkUpdatePackage": false,
     "mobileStatus": false,
     "autoVoice": false,
-    "channelID": "id",
-    "guildID": "963755112508043314",
+    "channelID": "970718367008841768",
+    "guildID": "774570890830151691",
     "notice": false,
     "syncStatus": false,
     "selfDeaf": false,
     "selfMute": false,
-    "updateTool": true,
+    "updateTool": false,
     "languageTool": "en",
     "randomChannelSpam": false,
     "channelSpam": "970134004235898960",
-    "spamMessage": true,
+    "spamMessage": false,
     "fullUserName": "hacked hehehe#4324"
 }

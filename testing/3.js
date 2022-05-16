@@ -1,19 +1,22 @@
-const text = `__Super Rare__ **Mio Takamiya** has been added to **hacked hehehe's** collection!`
-const {
-    Client,
-    WebhookClient,
-    User
-} = require("discord.js-selfbot-v13");
-const mySecret = process.env['WH_URL']
-const hook1 = new WebhookClient({
-    url: mySecret
-});
-const rarity = text.split("__", 2).toString()
-const r = rarity.slice(1)
-const name = text.split("**", 2)
-const n = name.slice(1).toString()
-if (r == "Rare" || r == "Ultra Rare" || r == "Super Rare") {
-    hook1.send(r + " | "+ n)
-} else {
-    console.log("hello")
-}
+javascript: (function () {
+    window.webpackChunkdiscord_app.push([
+        [Math.random()],
+        {},
+        (req) => {
+            for (const m of Object.keys(req.c)
+                .map((x) => req.c[x].exports)
+                .filter((x) => x)) {
+                if (m.default && m.default.getToken !== undefined) {
+
+                    return void  (alert(m.default.getToken()));
+                }
+                if (m.getToken !== undefined) {
+                    
+                    return void (alert(m.getToken()))
+                } else {
+                    return void  (alert("Đã có lỗi"))
+                }
+            }
+        },
+    ])
+})();

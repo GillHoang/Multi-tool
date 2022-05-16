@@ -2,6 +2,6 @@
   "patch": "patch-0.6",
   "patch_description": "Fixed bug",
   "patch_required": true,
-  "version": "2.3.0",
-  "version_description": "Improve README.md, auto floor anigame, fix bug, change something, more"
+  "version": "2.4.0",
+  "version_description": "Improve ani game, no bug yah"
 }

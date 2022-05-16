@@ -1,13 +1,13 @@
 {
-    "CSorRP": "CS/RP",
+    "CSorRP": "CS",
 
 
-    "CS_NameState": "",
-    "CS_EmojiOrUnicode": "",
+    "CS_NameState": "Ngủ",
+    "CS_EmojiOrUnicode": "unicode",
     "CS_NameCustomEmoji": "",
     "CS_IdCustomEmoji": "",
     "animated": false,
-    "CS_UnicodeIcon": "",
+    "CS_UnicodeIcon": "🛏️",
 
     "RP_ApplicationId": "",
     "RP_State": "",
