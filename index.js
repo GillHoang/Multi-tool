@@ -174,7 +174,7 @@ const hook1 = new WebhookClient({
 if (config.fisher.ONorOFF === true) {
     logger.warn("BETA FISH AUTO. YOU WILL GET BAN ANY TIME FROM IT!!")
 }
-if (config.anigame.ONorOFF === true) {
+if (config.aniGame.ONorOFF === true) {
     logger.warn("BETA ANI GAME AUTO. YOU WILL GET BAN ANY TIME FROM IT, BUGG, TOOO!!")
 }
 const anigame = ["571027211407196161"]; //Anigame ID
