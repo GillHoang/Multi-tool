@@ -1,7 +1,7 @@
 {
   "name": "Mutil tool",
   "version": "2.4.0",
-  "patch_version": "patch-0.6",
+  "patch_version": "patch-0.7",
   "description": "Improve ani game, no bug yah",
   "main": "index.js",
   "scripts": {
@@ -21,6 +21,7 @@
     "discord.js-selfbot-v13": "^2.0.0",
     "dotenv": "^16.0.1",
     "express": "^4.17.3",
+    "octokit": "^1.7.1",
     "quotegarden": "^1.1.0",
     "readline": "^1.3.0",
     "sourcebin-wrapper": "^1.6.0",

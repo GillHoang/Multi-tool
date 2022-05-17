@@ -6,6 +6,8 @@ const {
     uid,
     ONorOFF,
 } = require("../../../config/giveawayConfig.json");
+const d = new Date();
+const x = d / 1000;
 const { logger } = require("../../../utils/logger");
 const anigame = ["571027211407196161"]; //Anigame ID
 const fisher = ["574652751745777665"];
@@ -16,9 +18,8 @@ const hook = new WebhookClient({
 const language = require("../../../utils/language.js");
 module.exports = (client, message) => {
     if (config.aniGame.ONorOFF === true) {
-
         if (anigame.includes(message.author.id)) {
-            if (!message.guild) return
+            if (!message.guild) return;
             if (config.aniGame.servers.includes(message.guild.id)) {
                 message.embeds.forEach(async (e) => {
                     if (!e.title) return;
@@ -74,7 +75,7 @@ module.exports = (client, message) => {
                             e.author.name.includes(client.user.username)
                         ) {
                             message.channel.send(".fl n");
-                            sleep("2000")
+                            sleep("2000");
                             message.channel.send(".bt");
                         }
                     });
@@ -120,7 +121,7 @@ module.exports = (client, message) => {
                             )
                         ) {
                             logger.info("Waiting for stamina!");
-                            sleep(100 * 60 * 5);
+                            sleep(100 * 60 * 2);
                             message.channel.send(".bt");
                         }
                     });
@@ -203,13 +204,6 @@ module.exports = (client, message) => {
                         }, waittime * 1000);
                     }
                 });
-                if (
-                    message.content.includes(
-                        ":warning: | **normal bị ban owo**, hãy nhập captcha trong ảnh dưới để xác thực bạn không phải robot"
-                    )
-                ) {
-                    closeServer();
-                }
             }
             if (
                 message.author.id === "574812330760863744" &&
@@ -222,16 +216,6 @@ module.exports = (client, message) => {
             }
         }
     }
-    const content = message.content;
-    if (message.author.id == "574812330760863744") {
-        if (
-            message.content.includes(
-                "**normal bị ban owo**, hãy nhập captcha trong ảnh dưới để xác thực bạn không phải robot (`4M 59S`)"
-            )
-        ) {
-            closeServer();
-        }
-    }
 };
 
 function closeServer() {
@@ -241,29 +225,6 @@ function closeServer() {
     });
 }
 
-function sendNextFloor(client, message) {
-    message.embeds.forEach(async (e) => {
-        if (!e.footer) return;
-
-        if (
-            e.title.includes("**Victory <a:CHEER:705920932677681253>**") &&
-            e.author.name.includes(client.user.username)
-        ) {
-            message.channel.send(".fl n");
-            logger.info("[BETA] Sent next floor");
-            message.channel.send(".bt");
-            logger.info("[BETA] Sent battle");
-        } else if (
-            e.title.includes("Error ⛔") &&
-            e.description(
-                "you have not unlocked this floor yet! Please clear all previous floors in this location first."
-            )
-        ) {
-            logger.info("[BETA] Waiting");
-            sleep(15000);
-        }
-    });
-}
 
 function clickEnterBattle(client, message) {
     message.embeds.forEach(async (e) => {
@@ -287,4 +248,3 @@ function clickEnterBattle(client, message) {
 function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
-

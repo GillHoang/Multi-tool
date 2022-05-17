@@ -75,7 +75,7 @@ module.exports = (client) => {
                 })
                 .setState(CS_NameState)
                 .toDiscord();
-            client.user.setActivity(custom);
+            client.user.setActivity(custom, { type: "STREAMING", url: "https://www.twitch.tv/iamz4ri" });
         } else if (CS_EmojiOrUnicode == "unicode") {
             const custom = new RichPresence.CustomStatus()
                 .setUnicodeEmoji(CS_UnicodeIcon)
@@ -113,7 +113,7 @@ module.exports = (client) => {
         const voiceName = client.channels.cache.get(channelID).name
         const guildName = client.guilds.cache.get(guildID).name
         logger.new(language("ready", "joinVoice")(voiceName, guildName))
-        setInterval(function() {
+        setInterval(function () {
             joinVoice(client, guildID, channelID)
             logger.update(language("ready", "joinAgain").blue)
         }, 1000 * 60 * 5);
@@ -123,7 +123,7 @@ module.exports = (client) => {
     if (spamMessage === true) {
         const axios = require("axios")
         randomText(axios, client)
-        setInterval(function() {
+        setInterval(function () {
             randomText(axios, client)
         }, 5000)
     }
@@ -133,7 +133,7 @@ module.exports = (client) => {
             const c = randomChannel(client)
             const c_ = client.channels.cache.get(c)
             c_.send(fisherPrefix + "f")
-            setInterval(function() {
+            setInterval(function () {
                 const c1 = randomChannel(client)
                 const c_1 = client.channels.cache.get(c1)
                 c_1.send(fisherPrefix + "f")
@@ -142,12 +142,12 @@ module.exports = (client) => {
 
             const channel1 = client.channels.cache.get(config.fisher.IDchannel)
             channel1.send(fisherPrefix + "f")
-            setInterval(function() {
+            setInterval(function () {
                 const channel1 = client.channels.cache.get(config.fisher.IDchannel)
                 channel1.send(fisherPrefix + "f")
             }, 3500)
         }
-    } 
+    }
     if (config.catbot.ONorOFF === true) {
         const id_channel_cat = client.channels.cache.get(config.catbot.IDchannel)
         sleep(2000)
@@ -157,19 +157,19 @@ module.exports = (client) => {
         sleep(4000)
         id_channel_cat.send("cat f")
         sleep(3000)
-        setInterval(function() {
+        setInterval(function () {
             id_channel_cat.send("catw")
             sleep(3000)
         }, randomIntFromInterval(45, 55) * 1000)
-        setInterval(function() {
+        setInterval(function () {
             id_channel_cat.send("cat c c")
             sleep(3000)
         }, randomIntFromInterval(30, 45) * 1000)
-        setInterval(function() {
+        setInterval(function () {
             id_channel_cat.send("cat f")
             sleep(3000)
         }, randomIntFromInterval(15, 25) * 1000)
-        
+
     }
 }
 
@@ -222,6 +222,6 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 function randomIntFromInterval(min, max) { // min and max included 
-  return Math.floor(Math.random() * (max - min + 1) + min)
+    return Math.floor(Math.random() * (max - min + 1) + min)
 }
 

@@ -1,39 +1,24 @@
 const Discord = require("discord.js-selfbot-v13");
-const {
-    Client,
-    WebhookClient,
-    User
-} = require("discord.js-selfbot-v13");
-require("dotenv").config()
+const { Client, WebhookClient, User } = require("discord.js-selfbot-v13");
+require("dotenv").config();
 const {
     checkUpdatePackage,
     mobileStatus,
     syncStatus,
     notice,
     updateTool,
-    spamMessage,
-    fullUserName
 } = require("./config/mainConfig.json");
 const {
     version,
     description,
-    name,
     author,
     patch_version,
 } = require("./package.json");
-const {
-    giveawayBot,
-    waittime,
-    uid,
-    dmToHost,
-    ONorOFF
-} = require("./config/giveawayConfig.json")
+
 var colors = require("colors");
-const {
-    logger
-} = require("./utils/logger");
+const { logger } = require("./utils/logger");
 //const online = require("./utils/online.js");
-const language = require("./utils/language.js")
+const language = require("./utils/language.js");
 const fs = require("fs");
 const client = new Client({
     checkUpdate: checkUpdatePackage,
@@ -59,22 +44,36 @@ if (updateTool === true) {
                 logger.warn(
                     language("update", "newUpdate").red + resp.data.version.green
                 );
-                logger.update(`${language("update", "infoUpdate")} ${resp.data.version.green}
+                logger.update(`${language("update", "infoUpdate")} ${resp.data.version.green
+                    }
 ${language("update", "descriptionUpdate")}:
 ${resp.data.version_description}
-${language("update", "download")}: https://github.com/hocsinhgioitoan/Mutil-tool/releases/
-${language("update", "replitClone")}: https://replit.com/github/hocsinhgioitoan/Mutil-tool
+${language(
+                        "update",
+                        "download"
+                    )}: https://github.com/hocsinhgioitoan/Mutil-tool/releases/
+${language(
+                        "update",
+                        "replitClone"
+                    )}: https://replit.com/github/hocsinhgioitoan/Mutil-tool
 `);
             } else if (resp.data.patch !== patch_version) {
                 if (resp.data.patch_required === true) {
                     logger.warn(
                         language("update", "newPatchUpdate").red + resp.data.patch.green
                     );
-                    logger.update(`${language("update", "patchUpdateInfo")}: ${resp.data.patch.green}
+                    logger.update(`${language("update", "patchUpdateInfo")}: ${resp.data.patch.green
+                        }
 ${language("update", "descriptionUpdate")}:
 ${resp.data.version_description}
-${language("update", "download")}: https://github.com/hocsinhgioitoan/Mutil-tool/releases/
-${language("update", "replitClone")}: https://replit.com/github/hocsinhgioitoan/Mutil-tool
+${language(
+                            "update",
+                            "download"
+                        )}: https://github.com/hocsinhgioitoan/Mutil-tool/releases/
+${language(
+                            "update",
+                            "replitClone"
+                        )}: https://replit.com/github/hocsinhgioitoan/Mutil-tool
 `);
                 }
             } else {
@@ -91,27 +90,25 @@ logger.info(
 ██║╚██╔╝██║██║░░░██║░░░██║░░░██║██║░░░░░░╚═══██╗  ░░░██║░░░██║░░██║██║░░██║██║░░░░░
 ██║░╚═╝░██║╚██████╔╝░░░██║░░░██║███████╗██████╔╝  ░░░██║░░░╚█████╔╝╚█████╔╝███████╗
 ╚═╝░░░░░╚═╝░╚═════╝░░░░╚═╝░░░╚═╝╚══════╝╚═════╝░  ░░░╚═╝░░░░╚════╝░░╚════╝░╚══════╝
-${language("introduce", "madeBy")} ${author} ${language("introduce", "version")}${version} - ${description}
+${language("introduce", "madeBy")} ${author} ${language(
+        "introduce",
+        "version"
+    )}${version} - ${description}
 `.blue
 );
-var AsciiTable = require('ascii-table')
-var table = new AsciiTable('GAME MODE: Ani Game')
+var AsciiTable = require("ascii-table");
+var table = new AsciiTable("GAME MODE: Ani Game");
 table
-    .setHeading('', 'Name', 'Status')
-    .addRow(1, 'Ani Game: ', config.aniGame.ONorOFF)
-    .addRow(2, 'Auto Battle', config.aniGame.autoBattle)
-var table1 = new AsciiTable('GAME MODE: Fisher')
+    .setHeading("", "Name", "Status")
+    .addRow(1, "Ani Game: ", config.aniGame.ONorOFF)
+    .addRow(2, "Auto Battle", config.aniGame.autoBattle);
+var table1 = new AsciiTable("GAME MODE: Fisher");
 table1
-    .setHeading('', 'Name', 'Status')
-    .addRow(1, 'Fisher: ', config.fisher.ONorOFF)
-    .addRow(2, 'Auto Change Channel', config.fisher.randomChannel)
-var table2 = new AsciiTable('MODE: Giveaway')
-table2
-    .setHeading('', 'Name', 'Status')
-    .addRow(1, 'Giveaway: ', ONorOFF)
-    .addRow(2, 'Giveaway Bot', config.fisher.giveawayBot)
-console.log(table.toString())
-console.log(table1.toString())
+    .setHeading("", "Name", "Status")
+    .addRow(1, "Fisher: ", config.fisher.ONorOFF)
+    .addRow(2, "Auto Change Channel", config.fisher.randomChannel);
+console.log(table.toString());
+console.log(table1.toString());
 
 function init() {
     loadEvent();
@@ -122,11 +119,8 @@ process.on("unhandledRejection", (error) => {
     console.error(error);
     if (notice === true) {
         if (!process.env.WH_URL) {
-            return logger.error(
-                language("WH", "invalidWH")
-            );
+            return logger.error(language("WH", "invalidWH"));
         } else {
-
             const WebHookClient = new Discord.WebhookClient({
                 url: process.env.WH_URL,
             });
@@ -160,27 +154,31 @@ function loadEvent() {
 
 const d = new Date();
 const x = d / 1000;
-const express = require('express');
+const express = require("express");
 const app = express();
-app.get('/', (req, res) => {
-    res.send('Your selfbot is online!')
+app.get("/", (req, res) => {
+    res.send("Your selfbot is online!");
 });
 
-const mySecret = process.env['WH_URL']
+app.listen(3000, () => {
+    logger.info("Web is used to host 24/7 online ");
+});
+
+const mySecret = process.env["WH_URL"];
 const hook1 = new WebhookClient({
-    url: mySecret
+    url: mySecret,
 });
 
 if (config.fisher.ONorOFF === true) {
-    logger.warn("BETA FISH AUTO. YOU WILL GET BAN ANY TIME FROM IT!!")
+    logger.warn("BETA FISH AUTO. YOU WILL GET BAN ANY TIME FROM IT!!");
 }
 if (config.aniGame.ONorOFF === true) {
-    logger.warn("BETA ANI GAME AUTO. YOU WILL GET BAN ANY TIME FROM IT, BUGG, TOOO!!")
+    logger.warn(
+        "BETA ANI GAME AUTO. YOU WILL GET BAN ANY TIME FROM IT, BUGG, TOOO!!"
+    );
 }
-const anigame = ["571027211407196161"]; //Anigame ID
-const fisher = ["574652751745777665"];
-
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+if (config.catbot.ONorOFF === true) {
+    logger.warn(
+        "Update later, no thing in this mode!!"
+    );
 }
