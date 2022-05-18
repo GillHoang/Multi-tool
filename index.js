@@ -14,7 +14,6 @@ const {
     author,
     patch_version,
 } = require("./package.json");
-
 var colors = require("colors");
 const { logger } = require("./utils/logger");
 //const online = require("./utils/online.js");
@@ -41,6 +40,7 @@ if (updateTool === true) {
         )
         .then((resp) => {
             if (resp.data.version !== version) {
+                console.log("file: index.js ~ line 44 ~ .then ~ resp.data.version", resp.data.version)
                 logger.warn(
                     language("update", "newUpdate").red + resp.data.version.green
                 );

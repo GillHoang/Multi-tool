@@ -125,6 +125,12 @@ module.exports = (client, message) => {
                             message.channel.send(".bt");
                         }
                     });
+                    const content = message.content
+                    if (content.includes("This command is on cooldown... ")) {
+                        setTimeout(function () {
+                            message.channel.send(".bt")
+                        }, 2000)
+                    }
                 }
             }
         }

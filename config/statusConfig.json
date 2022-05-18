@@ -1,7 +1,6 @@
 {
-    "CSorRP": "NONE",
-
-
+    "status": "SP",
+    
     "CS_NameState": "",
     "CS_EmojiOrUnicode": "",
     "CS_NameCustomEmoji": "",
@@ -18,6 +17,9 @@
     "RP_AssetsLargeImage": "",
     "RP_AssetsSmallImage": "",
     "RP_AssetsLargeText": "",
-    "RP_AssetsSmallText": ""
+    "RP_AssetsSmallText": "",
+
+    "ST_name": "hjhj",
+    "ST_url_stream": "https://www.twitch.tv/gill_coder"
 
 }

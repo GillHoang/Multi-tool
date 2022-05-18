@@ -5,7 +5,7 @@
     "channelID": "",
     "guildID": "",
     "notice": false,
-    "syncStatus": false,
+    "syncStatus": true,
     "selfDeaf": false,
     "selfMute": false,
     "updateTool": false,

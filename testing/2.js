@@ -1,1 +1,0 @@
-const mobileStatus = true;console.log(mobileStatus ? "Discord iOS" : "Discord Client") const hello = "Hello"; console.log("hello")
