@@ -136,8 +136,8 @@ module.exports = (client) => {
       return logger.error(
         "There was an error, please check the guild Id again, maybe the syntax is wrong or the guild Id does not exist (guild to auto voice))"
       );
-    const check_4 = client.channels.cache.get(guildID);
-    if (check_4.type === "GUILD_VOICE") {
+    
+    if (check_2.type === "GUILD_VOICE") {
       joinVoice(client, guildID, channelID);
       const voiceName = client.channels.cache.get(channelID).name;
       const guildName = client.guilds.cache.get(guildID).name;
