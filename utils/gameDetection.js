@@ -13,6 +13,10 @@ function game(game) {
             return "FiveM";
         } else if (game === 3){ 
             return "League of Legends"
+        } else if (game === 4){ 
+            return "VALORANT"
+        } else {
+            return game
         }
     }
 }

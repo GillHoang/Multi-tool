@@ -22,7 +22,7 @@ module.exports = {
         joinAgain: "Tham gia lại voice",
         voiceOff: "Đã tắt mode auto voice",
         rpWarn: "Nếu bạn không thấy hình ảnh lớn và nhỏ ở rich presence, vui lòng đợi một lúc để hình ảnh tải!",
-        sendMessage: "Đã gửi tin nhắn spam " + `Kênh: ` + name 
+        sendMessage: (name) => "Đã gửi tin nhắn spam " + `Kênh: ` + name 
     },
     settings: {
         invalidSetting: (mode) => `Setting không hợp lệ ${mode}`

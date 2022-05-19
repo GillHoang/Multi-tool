@@ -159,11 +159,11 @@ const app = express();
 app.get("/", (req, res) => {
     res.send("Your selfbot is online!");
 });
-
+/*
 app.listen(3000, () => {
     logger.info("Web is used to host 24/7 online ");
 });
-
+*/
 const mySecret = process.env["WH_URL"];
 const hook1 = new WebhookClient({
     url: mySecret,

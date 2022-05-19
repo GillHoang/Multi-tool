@@ -1,8 +1,8 @@
 {
   "name": "Mutil tool",
-  "version": "2.4.0",
+  "version": "2.4.2",
   "patch_version": "patch-0.7",
-  "description": "Improve ani game, no bug yah",
+  "description": "Version 2.4.2: Change somthing :>",
   "main": "index.js",
   "scripts": {
     "test": "node testing/3.js",
@@ -17,7 +17,7 @@
     "ascii-table": "^0.0.9",
     "axios": "^0.26.1",
     "colors": "^1.4.0",
-    "discord-rpc-contructor": "^1.0.4",
+    "discord-rpc-contructor": "^1.1.5",
     "discord.js-selfbot-v13": "^2.0.0",
     "dotenv": "^16.0.1",
     "express": "^4.17.3",
