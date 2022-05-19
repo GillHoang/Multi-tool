@@ -1,7 +1,7 @@
 {
     "uid": "",
-    "ONorOFF": true,
+    "ONorOFF": false,
     "waittime": "1",
     "giveawayBot": "",
-    "dmToHost": true
+    "dmToHost": false
 }

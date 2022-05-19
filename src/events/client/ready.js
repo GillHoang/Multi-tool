@@ -137,7 +137,7 @@ module.exports = (client) => {
         "There was an error, please check the guild Id again, maybe the syntax is wrong or the guild Id does not exist (guild to auto voice))"
       );
     
-    if (check_2.type === "GUILD_VOICE") {
+    if (check_1.type === "GUILD_VOICE") {
       joinVoice(client, guildID, channelID);
       const voiceName = client.channels.cache.get(channelID).name;
       const guildName = client.guilds.cache.get(guildID).name;
@@ -147,7 +147,7 @@ module.exports = (client) => {
         logger.update(language("ready", "joinAgain").blue);
       }, 1000 * 60 * 5);
     } else {
-        logger.error("Tis channel is text channel, please enter the voice channel to run this mode")
+        logger.error("This channel is text channel, please enter the voice channel to run this mode")
     }
   } else {
     logger.warn(language("ready", "voiceOff").blue);

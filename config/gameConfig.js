@@ -1,9 +1,9 @@
 const config = {
     aniGame: {
-        ONorOFF: true,
+        ONorOFF: false,
         servers: [""], //Server IDs enclosed in "" and seperated by 
         webhook: process.env['WH_URL'], //ID for webhook logger
-        autoBattle: true
+        autoBattle: false
     },
     fisher: {
         ONorOFF: false,
