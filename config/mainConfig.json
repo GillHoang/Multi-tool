@@ -13,5 +13,6 @@
     "randomChannelSpam": false,
     "channelSpam": "",
     "spamMessage": false,
-    "fullUserName": ""
+    "fullUserName": "",
+    "newsMode": true
 }

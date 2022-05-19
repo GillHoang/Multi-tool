@@ -7,6 +7,7 @@ const {
     syncStatus,
     notice,
     updateTool,
+    newsMode
 } = require("./config/mainConfig.json");
 const {
     version,
@@ -33,6 +34,11 @@ const SourceBin = require("sourcebin-wrapper");
 //const lang = "vi";
 //const language = require("./language/" + lang + ".js");
 const config = require("./config/gameConfig.js");
+if (newsMode === true) {
+    axios.get("https://raw.githubusercontent.com/hocsinhgioitoan/Mutil-tool/main/version.json").then(resp => {
+        logger.info("News: "+resp.data.news)
+    })
+}
 if (updateTool === true) {
     axios
         .get(
