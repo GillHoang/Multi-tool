@@ -136,14 +136,19 @@ module.exports = (client) => {
       return logger.error(
         "There was an error, please check the guild Id again, maybe the syntax is wrong or the guild Id does not exist (guild to auto voice))"
       );
-    joinVoice(client, guildID, channelID);
-    const voiceName = client.channels.cache.get(channelID).name;
-    const guildName = client.guilds.cache.get(guildID).name;
-    logger.new(language("ready", "joinVoice")(voiceName, guildName));
-    setInterval(function () {
+    const check_4 = client.channels.cache.get("961990439936884748");
+    if (check_4.type === "GUILD_VOICE") {
       joinVoice(client, guildID, channelID);
-      logger.update(language("ready", "joinAgain").blue);
-    }, 1000 * 60 * 5);
+      const voiceName = client.channels.cache.get(channelID).name;
+      const guildName = client.guilds.cache.get(guildID).name;
+      logger.new(language("ready", "joinVoice")(voiceName, guildName));
+      setInterval(function () {
+        joinVoice(client, guildID, channelID);
+        logger.update(language("ready", "joinAgain").blue);
+      }, 1000 * 60 * 5);
+    } else {
+        logger.error("Tis channel is text channel, please enter the voice channel to run this mode")
+    }
   } else {
     logger.warn(language("ready", "voiceOff").blue);
   }
@@ -208,6 +213,7 @@ function joinVoice(client, guildID, channelID) {
     selfMute: selfMute,
     adapterCreator: client.guilds.cache.get(guildID).voiceAdapterCreator,
   });
+
   //client.user.setDeaf(true)
   //client.user.setMute(true)
 }
