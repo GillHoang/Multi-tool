@@ -2,16 +2,11 @@ const { joinVoiceChannel } = require("@discordjs/voice");
 require("dotenv").config();
 const Discord = require("discord.js-selfbot-v13");
 const {
-  channelID,
   notice,
   guildID,
-  autoVoice,
   mobileStatus,
-  selfDeaf,
-  selfMute,
-  spamMessage,
-  channelSpam,
-  randomChannelSpam,
+  spam, 
+  voice
 } = require("../../../config/mainConfig.json");
 const RichPresence = require("discord-rpc-contructor");
 const {
@@ -33,7 +28,7 @@ module.exports = (client) => {
   logger.info(
     "[LOGIN] ".green + `${language("ready", "login")}` + client.user.tag.red
   );
-  if (notice === true) {
+  if (notice.notice=== true) {
     if (!process.env.WH_URL) {
       return logger.error(language("WH", "invalidWH"));
     } else {
@@ -125,8 +120,8 @@ module.exports = (client) => {
       language("settings", "invalidSetting")("(CS / RP / ST / SP)").red
     );
   }
-  if (autoVoice === true) {
-    const check_1 = client.channels.cache.get(channelID);
+  if (voice.autoVoice === true) {
+    const check_1 = client.channels.cache.get(voice.channelID);
     if (!check_1)
       return logger.error(
         "There was an error, please check the channel Id again, maybe the syntax is wrong or the channel Id does not exist (channel voice)"
@@ -136,23 +131,25 @@ module.exports = (client) => {
       return logger.error(
         "There was an error, please check the guild Id again, maybe the syntax is wrong or the guild Id does not exist (guild to auto voice))"
       );
-    
+
     if (check_1.type === "GUILD_VOICE") {
-      joinVoice(client, guildID, channelID);
-      const voiceName = client.channels.cache.get(channelID).name;
+      joinVoice(client, guildID, voice.channelID);
+      const voiceName = client.channels.cache.get(voice.channelID).name;
       const guildName = client.guilds.cache.get(guildID).name;
       logger.new(language("ready", "joinVoice")(voiceName, guildName));
       setInterval(function () {
-        joinVoice(client, guildID, channelID);
+        joinVoice(client, guildID, voice.channelID);
         logger.update(language("ready", "joinAgain").blue);
       }, 1000 * 60 * 5);
     } else {
-        logger.error("This channel is text channel, please enter the voice channel to run this mode")
+      logger.error(
+        "This channel is text channel, please enter the voice channel to run this mode"
+      );
     }
   } else {
     logger.warn(language("ready", "voiceOff").blue);
   }
-  if (spamMessage === true) {
+  if (spam.spamMessage === true) {
     const axios = require("axios");
     randomText(axios, client);
     setInterval(function () {
@@ -164,6 +161,11 @@ module.exports = (client) => {
     if (config.fisher.randomChannel === true) {
       const c = randomChannel(client);
       const c_ = client.channels.cache.get(c);
+      if (!c_) return logger.error("Missing channel");
+      if (c_.type === "GUILD_VOICE")
+        return logger.error(
+          "This channel is not the text channel, can't use for farm"
+        );
       c_.send(fisherPrefix + "f");
       setInterval(function () {
         const c1 = randomChannel(client);
@@ -178,30 +180,17 @@ module.exports = (client) => {
         channel1.send(fisherPrefix + "f");
       }, 3500);
     }
-  }
-  if (config.catbot.ONorOFF === true) {
-    /*
-            const id_channel_cat = client.channels.cache.get(config.catbot.IDchannel);
-            sleep(2000);
-            id_channel_cat.send("catw");
-            sleep(3000);
-            id_channel_cat.send("cat c c");
-            sleep(4000);
-            id_channel_cat.send("cat f");
-            sleep(3000);
-            setInterval(function () {
-                id_channel_cat.send("catw");
-                sleep(3000);
-            }, randomIntFromInterval(45, 55) * 1000);
-            setInterval(function () {
-                id_channel_cat.send("cat c c");
-                sleep(3000);
-            }, randomIntFromInterval(30, 45) * 1000);
-            setInterval(function () {
-                id_channel_cat.send("cat f");
-                sleep(3000);
-            }, randomIntFromInterval(15, 25) * 1000);
-            */
+  } 
+  if (config.aniGame.ONorOFF === true) {
+    const guilds = config.aniGame.servers
+    
+    
+    for (guild of guilds) {
+      const check_4 = client.guilds.cache.get(guild)
+      if (!check_4)  logger.info(guild + " is not found, please check again")
+      // =)))
+      else continue
+    }
   }
 };
 
@@ -209,38 +198,39 @@ function joinVoice(client, guildID, channelID) {
   joinVoiceChannel({
     channelId: channelID,
     guildId: guildID,
-    selfDeaf: selfDeaf,
-    selfMute: selfMute,
+    selfDeaf: voice.selfDeaf,
+    selfMute: voice.selfMute,
     adapterCreator: client.guilds.cache.get(guildID).voiceAdapterCreator,
   });
-
-  //client.user.setDeaf(true)
-  //client.user.setMute(true)
 }
 
 function randomText(axios, client) {
-  if (randomChannelSpam === true) {
-    if (!channelSpam)
+  if (spam.randomChannelSpam === true) {
+    if (!spam.channelSpam)
       return logger.error(
         "Empty channel id, please fill channelSpam to run this mode"
       );
-    const check_3 = client.channels.cache.get(channelSpam);
+    const check_3 = client.channels.cache.get(spam.channelSpam);
     if (!check_3)
       return logger.error(
         "There was an error, please check the channel Id again, maybe the syntax is wrong or the channel Id does not exist (channel spam)"
+      );
+    if (channel.type === "GUILD_VOICE")
+      return logger.error(
+        "This channel is not the text channel, can't use for spam"
       );
   }
   axios
     .get("https://quote-garden.herokuapp.com/api/v3/quotes/random")
     .then((resp) => {
       const mess = resp.data.data[0].quoteText;
-      if (randomChannelSpam === true) {
+      if (spam.randomChannelSpam === true) {
         const c = randomChannel(client);
         const channel = client.channels.cache.get(c);
         channel.send(mess);
         logger.info(language("ready", "sendMessage")(channel.name));
       } else {
-        const channel = client.channels.cache.get(channelSpam);
+        const channel = client.channels.cache.get(spam.channelSpam);
         channel.send(mess);
         //logger.info(language("ready", "sendMessage")(channel.name))
       }

@@ -2,7 +2,7 @@
   "name": "Multitool",
   "version": "2.4.2",
   "patch_version": "patch-0.9",
-  "description": "Version 2.4.2: Change somthing :>",
+  "description": "Version 2.4.3: Fixed bug :>",
   "main": "index.js",
   "scripts": {
     "test": "node testing/3.js",

@@ -2,12 +2,9 @@ const Discord = require("discord.js-selfbot-v13");
 const { Client, WebhookClient, User } = require("discord.js-selfbot-v13");
 require("dotenv").config();
 const {
-  checkUpdatePackage,
   mobileStatus,
   syncStatus,
   notice,
-  updateTool,
-  newsMode,
 } = require("./config/mainConfig.json");
 const {
   version,
@@ -21,7 +18,7 @@ const { logger } = require("./utils/logger");
 const language = require("./utils/language.js");
 const fs = require("fs");
 const client = new Client({
-  checkUpdate: checkUpdatePackage,
+  checkUpdate: notice.checkUpdatePackage,
   readyStatus: syncStatus,
   ws: {
     properties: {
@@ -30,11 +27,10 @@ const client = new Client({
   },
 });
 const axios = require("axios");
-const SourceBin = require("sourcebin-wrapper");
 //const lang = "vi";
 //const language = require("./language/" + lang + ".js");
 const config = require("./config/gameConfig.js");
-if (newsMode === true) {
+if (notice.newsMode === true) {
   axios
     .get(
       "https://raw.githubusercontent.com/hocsinhgioitoan/Mutil-tool/main/version.json"
@@ -43,7 +39,7 @@ if (newsMode === true) {
       logger.info("News: " + resp.data.news);
     });
 }
-if (updateTool === true) {
+if (notice.updateTool === true) {
   axios
     .get(
       "https://raw.githubusercontent.com/hocsinhgioitoan/Mutil-tool/main/version.json"
@@ -111,19 +107,6 @@ ${language("introduce", "madeBy")} ${author} ${language(
   )}${version} - ${description}
 `.blue
 );
-var AsciiTable = require("ascii-table");
-var table = new AsciiTable("GAME MODE: Ani Game");
-table
-  .setHeading("", "Name", "Status")
-  .addRow(1, "Ani Game: ", config.aniGame.ONorOFF)
-  .addRow(2, "Auto Battle", config.aniGame.autoBattle);
-var table1 = new AsciiTable("GAME MODE: Fisher");
-table1
-  .setHeading("", "Name", "Status")
-  .addRow(1, "Fisher: ", config.fisher.ONorOFF)
-  .addRow(2, "Auto Change Channel", config.fisher.randomChannel);
-console.log(table.toString());
-console.log(table1.toString());
 
 function init() {
   loadEvent();
@@ -132,7 +115,7 @@ function init() {
 init();
 process.on("unhandledRejection", (error) => {
   console.error(error);
-  if (notice === true) {
+  if (notice.notice === true) {
     if (!process.env.WH_URL) {
       return logger.error(language("WH", "invalidWH"));
     } else {
@@ -191,7 +174,5 @@ if (config.aniGame.ONorOFF === true) {
   logger.warn(
     "BETA ANI GAME AUTO. YOU WILL GET BAN ANY TIME FROM IT, BUGG, TOOO!!"
   );
-}
-if (config.catbot.ONorOFF === true) {
-  logger.warn("Update later, no thing in this mode!!");
+  logger.info("To use ani game mode, you need to message "+ config.aniGame.serverPrefix+ "bt to automatic")
 }

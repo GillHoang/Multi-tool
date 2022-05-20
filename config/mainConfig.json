@@ -1,18 +1,24 @@
 {
-    "checkUpdatePackage": false,
     "mobileStatus": false,
-    "autoVoice": false,
-    "channelID": "",
     "guildID": "",
-    "notice": false,
     "syncStatus": false,
-    "selfDeaf": false,
-    "selfMute": false,
-    "updateTool": false,
     "languageTool": "en",
-    "randomChannelSpam": false,
-    "channelSpam": "",
-    "spamMessage": false,
     "fullUserName": "",
-    "newsMode": true
+    "voice" : {
+        "autoVoice": false,
+        "channelID": "",
+        "selfDeaf": false,
+        "selfMute": false
+    },
+    "notice": {
+        "notice": false,
+        "newsMode": true,
+        "updateTool": false,
+        "checkUpdatePackage": false
+    },
+    "spam": {
+        "randomChannelSpam": false,
+        "channelSpam": "",
+        "spamMessage": false
+    }
 }

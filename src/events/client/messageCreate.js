@@ -17,8 +17,9 @@ const hook = new WebhookClient({
 });
 const language = require("../../../utils/language.js");
 module.exports = (client, message) => {
-    
   if (config.aniGame.ONorOFF === true) {
+    if (config.aniGame.servers.length === 0)
+      return logger.error("Please enter guild to snipe card");
     if (anigame.includes(message.author.id)) {
       if (!message.guild) return;
       if (config.aniGame.servers.includes(message.guild.id)) {
@@ -67,6 +68,7 @@ module.exports = (client, message) => {
           }
         });
         if (config.aniGame.autoBattle === true) {
+          const prefix = config.aniGame.serverPrefix;
           clickEnterBattle(client, message);
           message.embeds.forEach(async (e) => {
             if (!e.title) return;
@@ -76,9 +78,9 @@ module.exports = (client, message) => {
               e.title.includes("**Victory <a:CHEER:705920932677681253>**") &&
               e.author.name.includes(client.user.username)
             ) {
-              message.channel.send(".fl n");
+              message.channel.send(prefix + "fl n");
               sleep("2000");
-              message.channel.send(".bt");
+              message.channel.send(prefix + "bt");
             }
           });
           message.embeds.forEach(async (e) => {
@@ -94,7 +96,7 @@ module.exports = (client, message) => {
               const loc = des.split(" ");
               const aloc = loc[4].toString().replace(/,\s*$/, "");
               const nextloc = parseInt(aloc) + 1;
-              message.channel.send(`.loc ` + nextloc);
+              message.channel.send(prefix + `loc ` + nextloc);
             }
           });
           message.embeds.forEach(async (e) => {
@@ -104,7 +106,7 @@ module.exports = (client, message) => {
               e.title.includes("Successfully travelled to") &&
               e.author.name.includes(client.user.username)
             ) {
-              message.channel.send(".bt");
+              message.channel.send(prefix + "bt");
             }
           });
           message.embeds.forEach(async (e) => {
@@ -124,13 +126,13 @@ module.exports = (client, message) => {
             ) {
               logger.info("Waiting for stamina!");
               sleep(100 * 60 * 2);
-              message.channel.send(".bt");
+              message.channel.send(prefix + "bt");
             }
           });
           const content = message.content;
           if (content.includes("This command is on cooldown... ")) {
             setTimeout(function () {
-              message.channel.send(".bt");
+              message.channel.send(prefix + "bt");
             }, 2000);
           }
         }
@@ -144,7 +146,7 @@ module.exports = (client, message) => {
         if (!e.footer) return;
         if (e.title.includes("Anti-bot")) {
           hook.send(
-            `<t:${Math.floor(x)}R:> | got captcha in ${message.channel.name}`
+            `Got captcha in ${message.channel.name}`
           );
           closeServer();
         }

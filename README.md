@@ -8,7 +8,7 @@
 - Onwer of this project is [hocsinhgioitoan](https://github.com/hocsinhgioitoan/).
 - More feature? Coming Soon maybe after my exam.
 - Have bug? Please open issues, i will help you [here](https://github.com/hocsinhgioitoan/Auto-Voice-/issues).
-- Currently version: 2.4.2
+- Currently version: 2.4.3
 - Thank for dungnguvcl help me test this project
 - New way to copy token, no copy, just click to bookmark. Check [here](https://github.com/hocsinhgioitoan/Multi-tool/blob/main/docs/Token.md#new-method)
 
