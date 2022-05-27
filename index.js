@@ -5,6 +5,7 @@ const {
   mobileStatus,
   syncStatus,
   notice,
+  online247,
 } = require("./config/mainConfig.json");
 const {
   version,
@@ -27,6 +28,7 @@ const client = new Client({
   },
 });
 const axios = require("axios");
+global.logger = logger;
 //const lang = "vi";
 //const language = require("./language/" + lang + ".js");
 const config = require("./config/gameConfig.js");
@@ -95,12 +97,13 @@ ${language(
 
 logger.info(
   `
-███╗░░░███╗██╗░░░██╗████████╗██╗██╗░░░░░░██████╗  ████████╗░█████╗░░█████╗░██╗░░░░░
-████╗░████║██║░░░██║╚══██╔══╝██║██║░░░░░██╔════╝  ╚══██╔══╝██╔══██╗██╔══██╗██║░░░░░
-██╔████╔██║██║░░░██║░░░██║░░░██║██║░░░░░╚█████╗░  ░░░██║░░░██║░░██║██║░░██║██║░░░░░
-██║╚██╔╝██║██║░░░██║░░░██║░░░██║██║░░░░░░╚═══██╗  ░░░██║░░░██║░░██║██║░░██║██║░░░░░
-██║░╚═╝░██║╚██████╔╝░░░██║░░░██║███████╗██████╔╝  ░░░██║░░░╚█████╔╝╚█████╔╝███████╗
-╚═╝░░░░░╚═╝░╚═════╝░░░░╚═╝░░░╚═╝╚══════╝╚═════╝░  ░░░╚═╝░░░░╚════╝░░╚════╝░╚══════╝
+
+  ███╗░░░███╗██╗░░░██╗██╗░░░░░████████╗██╗  ████████╗░█████╗░░█████╗░██╗░░░░░
+  ████╗░████║██║░░░██║██║░░░░░╚══██╔══╝██║  ╚══██╔══╝██╔══██╗██╔══██╗██║░░░░░
+  ██╔████╔██║██║░░░██║██║░░░░░░░░██║░░░██║  ░░░██║░░░██║░░██║██║░░██║██║░░░░░
+  ██║╚██╔╝██║██║░░░██║██║░░░░░░░░██║░░░██║  ░░░██║░░░██║░░██║██║░░██║██║░░░░░
+  ██║░╚═╝░██║╚██████╔╝███████╗░░░██║░░░██║  ░░░██║░░░╚█████╔╝╚█████╔╝███████╗
+  ╚═╝░░░░░╚═╝░╚═════╝░╚══════╝░░░╚═╝░░░╚═╝  ░░░╚═╝░░░░╚════╝░░╚════╝░╚══════╝
 ${language("introduce", "madeBy")} ${author} ${language(
     "introduce",
     "version"
@@ -157,11 +160,12 @@ const app = express();
 app.get("/", (req, res) => {
   res.send("Your selfbot is online!");
 });
-/*
-app.listen(3000, () => {
-  logger.info("Web is used to host 24/7 online ");
-});
-*/
+if (online247 === true) {
+  app.listen(3000, () => {
+    logger.info("Web is used to host 24/7 online ");
+  });
+}
+
 const mySecret = process.env["WH_URL"];
 const hook1 = new WebhookClient({
   url: mySecret,
@@ -174,5 +178,9 @@ if (config.aniGame.ONorOFF === true) {
   logger.warn(
     "BETA ANI GAME AUTO. YOU WILL GET BAN ANY TIME FROM IT, BUGG, TOOO!!"
   );
-  logger.info("To use ani game mode, you need to message "+ config.aniGame.serverPrefix+ "bt to automatic")
+  logger.info(
+    "To use ani game mode, you need to message " +
+      config.aniGame.serverPrefix +
+      "bt to automatic"
+  );
 }

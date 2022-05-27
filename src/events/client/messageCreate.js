@@ -11,17 +11,20 @@ const x = d / 1000;
 const { logger } = require("../../../utils/logger");
 const anigame = ["571027211407196161"]; //Anigame ID
 const fisher = ["574652751745777665"];
+const dank = ["270904126974590976"];
 const { fullUserName } = require("../../../config/mainConfig.json");
 const hook = new WebhookClient({
   url: config.aniGame.webhook,
 });
 const language = require("../../../utils/language.js");
 module.exports = (client, message) => {
+  if (!message.guild) return
   if (config.aniGame.ONorOFF === true) {
     if (config.aniGame.servers.length === 0)
       return logger.error("Please enter guild to snipe card");
     if (anigame.includes(message.author.id)) {
       if (!message.guild) return;
+
       if (config.aniGame.servers.includes(message.guild.id)) {
         message.embeds.forEach(async (e) => {
           if (!e.title) return;
@@ -145,9 +148,7 @@ module.exports = (client, message) => {
         if (!e.title) return;
         if (!e.footer) return;
         if (e.title.includes("Anti-bot")) {
-          hook.send(
-            `Got captcha in ${message.channel.name}`
-          );
+          hook.send(`Got captcha in ${message.channel.name}`);
           closeServer();
         }
         if (e.title.includes("You caught:")) {
@@ -164,6 +165,93 @@ module.exports = (client, message) => {
           }, 1000 * 60);
         }
       });
+    }
+  }
+  if (config.dank.ONorOFF === true) {
+    if (message.guild.id !== "963755112508043314") return;
+    if (dank.includes(message.author.id))
+      message.embeds.forEach(async (e) => {
+        if (!e.description) return;
+        if (!e.author) return;
+        if (
+          e.author.name.includes(`${client.user.username}'s trivia question`)
+        ) {
+          const row = message.components[0];
+          if (!row) return;
+          let labelArray = [];
+          const button = row.components.forEach((button_) =>
+            labelArray.push(button_.label)
+          );
+          var item = labelArray[Math.floor(Math.random() * labelArray.length)];
+          const findButton = row.components.find(
+            (button_) => button_.label == item
+          );
+          if (!findButton) return;
+          sleep(5000);
+          findButton.click(message);
+        }
+      });
+    if (message.content.includes("Where do you want to search?")) {
+      const check_5 = message.mentions.users;
+      check_5.forEach((user) => {
+        if (user == client.user.id) {
+          const row = message.components[0];
+          if (!row) return;
+          let labelArray = [];
+          const button = row.components.forEach((button_) =>
+            labelArray.push(button_.label)
+          );
+          var item = labelArray[Math.floor(Math.random() * labelArray.length)];
+          const findButton = row.components.find(
+            (button_) => button_.label == item
+          );
+          if (!findButton) return;
+          sleep(5000);
+          findButton.click(message);
+        }
+      });
+    }
+    if (message.content.includes("Dodge the Fireball")) {
+      const check_5 = message.mentions.users;
+      check_5.forEach((user) => {
+        if (user == client.user.id) {
+          const row = message.components[0];
+          if (!row) return;
+          let labelArray = [];
+          const button = row.components.forEach((button_) =>
+            labelArray.push(button_.label)
+          );
+          var item = labelArray[Math.floor(Math.random() * labelArray.length)];
+          const findButton = row.components.find(
+            (button_) => button_.label == item
+          );
+          if (!findButton) return;
+          sleep(5000);
+          findButton.click(message);
+        }
+      });
+    }
+    if (message.content.includes("Attack the boss by clicking")) {
+      const row = message.components[0];
+      if (!row) return;
+      const item = "disinfect"
+      const findButton = row.components.find(
+        (button_) => button_.label == item
+      );
+      if (!findButton) return;
+      sleep(5000);
+      setInterval(function() {
+        findButton.click(message);
+      }, 1000)
+    }
+    if (
+      message.content.includes(
+        "You don't have a shovel, you need to go buy one. I'd hate to let you dig with your bare hands."
+      )
+    ) {
+      const channeldank = config.dank.IDchannel;
+      const sendDank = client.channels.cache.get(channeldank);
+      sendDank.send("pls buy shovel");
     }
   }
   if (ONorOFF === true) {

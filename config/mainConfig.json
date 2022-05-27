@@ -20,5 +20,6 @@
         "randomChannelSpam": false,
         "channelSpam": "",
         "spamMessage": false
-    }
+    },
+    "online247": false
 }

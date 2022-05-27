@@ -5,8 +5,8 @@ const {
   notice,
   guildID,
   mobileStatus,
-  spam, 
-  voice
+  spam,
+  voice,
 } = require("../../../config/mainConfig.json");
 const RichPresence = require("discord-rpc-contructor");
 const {
@@ -28,7 +28,7 @@ module.exports = (client) => {
   logger.info(
     "[LOGIN] ".green + `${language("ready", "login")}` + client.user.tag.red
   );
-  if (notice.notice=== true) {
+  if (notice.notice === true) {
     if (!process.env.WH_URL) {
       return logger.error(language("WH", "invalidWH"));
     } else {
@@ -180,16 +180,54 @@ module.exports = (client) => {
         channel1.send(fisherPrefix + "f");
       }, 3500);
     }
-  } 
+  }
   if (config.aniGame.ONorOFF === true) {
-    const guilds = config.aniGame.servers
-    
-    
+    const guilds = config.aniGame.servers;
+
     for (guild of guilds) {
-      const check_4 = client.guilds.cache.get(guild)
-      if (!check_4)  logger.info(guild + " is not found, please check again")
+      const check_4 = client.guilds.cache.get(guild);
+      if (!check_4) logger.info(guild + " is not found, please check again");
       // =)))
-      else continue
+      else continue;
+    }
+  }
+  if (config.dank.ONorOFF === true) {
+    const channel_dank = client.channels.cache.get(config.dank.IDchannel);
+    if (config.dank.mode.trivia === true) {
+      channel_dank.send("pls trivia");
+      setInterval(function () {
+        channel_dank.send("pls trivia");
+      }, randomIntFromInterval(10 * 1000, 15 * 1000));
+    }
+    if (config.dank.mode.search === true) {
+      channel_dank.send("pls search");
+      setInterval(function () {
+        channel_dank.send("pls search");
+      }, randomIntFromInterval(30 * 1000, 45 * 1000));
+    }
+    if (config.dank.mode.fish === true) {
+      channel_dank.send("pls fish");
+      setInterval(function () {
+        channel_dank.send("pls fish");
+      }, randomIntFromInterval(40 * 1000, 55 * 1000));
+    }
+    if (config.dank.mode.beg === true) {
+      channel_dank.send("pls beg");
+      setInterval(function () {
+        channel_dank.send("pls beg");
+      }, randomIntFromInterval(40 * 1000, 55 * 1000));
+    }
+    if (config.dank.mode.dig === true) {
+      channel_dank.send("pls dig");
+      setInterval(function () {
+        channel_dank.send("pls dig");
+      }, randomIntFromInterval(40 * 1000, 55 * 1000));
+    }
+    if (config.dank.mode.hunt === true) {
+      channel_dank.send("pls hunt");
+      setInterval(function () {
+        channel_dank.send("pls hunt");
+      }, randomIntFromInterval(40 * 1000, 55 * 1000));
     }
   }
 };
@@ -247,9 +285,11 @@ function randomChannel(client) {
   var id = guildMapAfter[Math.floor(Math.random() * guildMapAfter.length)];
   return id;
 }
+
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
 function randomIntFromInterval(min, max) {
   // min and max included
   return Math.floor(Math.random() * (max - min + 1) + min);

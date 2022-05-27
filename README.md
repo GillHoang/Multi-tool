@@ -1,6 +1,6 @@
 ![image](https://media.discordapp.net/attachments/963047907030892558/976848772925624340/Status_-_Auto_Spam_Message_-_Auto_Ani_Game_-_Auto_Fisher_-_Giveaway_Sniper.png)
 
-**This source code is made from start to finish by hocsinhgioitoan, so who this tool is sold by we are not responsible and it is OPEN SOURCE, join our server to get help [here](https://discord.gg/R7948YWRZP) . Love you everybody\*\*
+ This source code is made from start to finish by hocsinhgioitoan, so who this tool is sold by we are not responsible and it is OPEN SOURCE, join our server to get help [here](https://discord.gg/R7948YWRZP) . Love you everybody
 
 # INTRODUCE
 
@@ -8,7 +8,7 @@
 - Onwer of this project is [hocsinhgioitoan](https://github.com/hocsinhgioitoan/).
 - More feature? Coming Soon maybe after my exam.
 - Have bug? Please open issues, i will help you [here](https://github.com/hocsinhgioitoan/Auto-Voice-/issues).
-- Currently version: 2.4.3
+- Currently version: 2.5
 - Thank for dungnguvcl help me test this project
 - New way to copy token, no copy, just click to bookmark. Check [here](https://github.com/hocsinhgioitoan/Multi-tool/blob/main/docs/Token.md#new-method)
 
